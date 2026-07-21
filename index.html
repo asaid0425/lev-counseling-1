@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Mulish:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  a { color: inherit; text-decoration: none; }
+  @media (max-width: 760px) {
+    .hero-scrim { background: linear-gradient(180deg, rgba(24,22,20,0.35) 0%, rgba(24,22,20,0.55) 45%, rgba(24,22,20,0.82) 100%) !important; }
+    .hero-bg { background-position: 60% top !important; }
+    .hero-header { flex-direction: row !important; align-items: center !important; }
+    .hero-nav { display: none !important; }
+    .hero-burger { display: inline-flex !important; }
+    .hero-cta { flex-direction: column !important; align-items: stretch !important; }
+    .hero-cta a { width: 100% !important; }
+    .hero-badges { flex-wrap: wrap !important; gap: 10px 16px !important; }
+    .hero-badge-row { align-items: flex-start !important; }
+  }
+  @keyframes splashLogoIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+  @keyframes contentReveal { 0%, 42% { opacity: 0; transform: translateY(34px); } 100% { opacity: 1; transform: translateY(0); } }
+</style>
+</helmet>
+<section style="position: relative; width: 100%; min-height: 100vh; background: #211f1c; overflow: hidden; font-family: 'Mulish', sans-serif;">
+  <sc-if value="{{ splashVisible }}" hint-placeholder-val="{{ true }}">
+    <div style="position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; background: #17150f; opacity: {{ splashOpacity }}; transform: translateY({{ splashShift }}); transition: opacity 0.9s ease, transform 0.9s ease; pointer-events: none;">
+      <img src="assets/logo-lc.png" alt="Lev Counseling" style="width: clamp(120px, 24vw, 200px); height: auto; animation: splashLogoIn 1s ease both;" />
+    </div>
+  </sc-if>
+  <div class="hero-bg" style="position: absolute; inset: 0; background-image: url('assets/hero-bg.png'); background-size: cover; background-position: 68% center; z-index: 0; filter: contrast(1.14) brightness(1.12) saturate(1.04); opacity: {{ contentOpacity }}; transform: scale({{ bgScale }}); transition: opacity 1.2s ease, transform 1.6s cubic-bezier(0.22,1,0.36,1);"></div>
+  <div style="position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(28,26,23,0.78) 0%, rgba(28,26,23,0.68) 28%, rgba(30,28,25,0.3) 50%, rgba(30,28,25,0.04) 70%, rgba(30,28,25,0) 100%);"></div>
+  <div class="hero-scrim" style="position: absolute; inset: 0; z-index: 1; background: transparent;"></div>
+
+  <div style="position: relative; z-index: 2; max-width: 1600px; margin: 0 auto; padding: clamp(12px, 1.6vw, 18px) clamp(22px, 5vw, 64px) clamp(32px, 4vw, 56px); display: flex; flex-direction: column; min-height: 100vh; opacity: {{ contentOpacity }}; transform: translateY({{ contentShift }}); transition: opacity 1s ease, transform 1.1s cubic-bezier(0.22,1,0.36,1);">
+    <header class="hero-header" style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid rgba(226,220,206,0.22);">
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <img src="assets/logo-lc.png" alt="Lev Counseling" style="width: 74px; height: auto; display: block;" />
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 33px; font-weight: 400; color: #ffffff; letter-spacing: 0.4px; font-size: clamp(24px, 4.4vw, 33px);">Lev Counseling Services</span>
+      </div>
+      <nav class="hero-nav" style="display: flex; gap: 52px; font-size: 17px; font-weight: 300; letter-spacing: 0.6px; color: #ffffff;">
+        <a href="#" style="opacity: 0.92; padding-bottom: 3px; border-bottom: 1px solid transparent; transition: color 0.3s ease, border-color 0.3s ease;" style-hover="opacity: 1; color: #cbb688; border-bottom-color: #cbb688;">About</a>
+        <a href="#" style="opacity: 0.92; padding-bottom: 3px; border-bottom: 1px solid transparent; transition: color 0.3s ease, border-color 0.3s ease;" style-hover="opacity: 1; color: #cbb688; border-bottom-color: #cbb688;">Services</a>
+        <a href="#" style="opacity: 0.92; padding-bottom: 3px; border-bottom: 1px solid transparent; transition: color 0.3s ease, border-color 0.3s ease;" style-hover="opacity: 1; color: #cbb688; border-bottom-color: #cbb688;">Specialties</a>
+        <a href="#" style="opacity: 0.92; padding-bottom: 3px; border-bottom: 1px solid transparent; transition: color 0.3s ease, border-color 0.3s ease;" style-hover="opacity: 1; color: #cbb688; border-bottom-color: #cbb688;">Contact</a>
+      </nav>
+      <button class="hero-burger" onClick="{{ toggleMenu }}" aria-label="Menu" style="display: none; align-items: center; justify-content: center; width: 46px; height: 46px; background: transparent; border: 1px solid rgba(226,220,206,0.4); color: #ffffff; cursor: pointer; padding: 0;">
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="#ffffff" stroke-width="1.4" stroke-linecap="round">
+          <path d="M1 1h18M1 7h18M1 13h18" />
+        </svg>
+      </button>
+    </header>
+
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <nav style="display: flex; flex-direction: column; gap: 4px; padding: 14px 0 18px; border-bottom: 1px solid rgba(226,220,206,0.18);">
+        <a href="#" onClick="{{ closeMenu }}" style="padding: 12px 4px; font-size: 17px; letter-spacing: 0.6px; color: #ffffff; border-bottom: 1px solid rgba(226,220,206,0.1);">About</a>
+        <a href="#" onClick="{{ closeMenu }}" style="padding: 12px 4px; font-size: 17px; letter-spacing: 0.6px; color: #ffffff; border-bottom: 1px solid rgba(226,220,206,0.1);">Services</a>
+        <a href="#" onClick="{{ closeMenu }}" style="padding: 12px 4px; font-size: 17px; letter-spacing: 0.6px; color: #ffffff; border-bottom: 1px solid rgba(226,220,206,0.1);">Specialties</a>
+        <a href="#" onClick="{{ closeMenu }}" style="padding: 12px 4px; font-size: 17px; letter-spacing: 0.6px; color: #ffffff;">Contact</a>
+      </nav>
+    </sc-if>
+
+    <div style="flex: 1; display: flex; align-items: center;">
+      <div style="max-width: 720px; padding-top: clamp(40px, 8vw, 96px);">
+        <div style="display: flex; align-items: center; gap: 22px; margin-bottom: 30px;">
+          <span style="width: 58px; height: 1.5px; background: #c9a86a;"></span>
+          <span style="font-size: 14px; font-weight: 500; letter-spacing: 3.2px; color: #ffffff;">THERAPY FOR WHAT MATTERS MOST</span>
+        </div>
+
+        <h1 style="font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(42px, 8.2vw, 84px); line-height: 1.03; color: #ffffff; letter-spacing: 0.2px; text-wrap: pretty;">Compassionate therapy for clarity, healing, and growth.</h1>
+
+        <div style="width: 58px; height: 1.5px; background: rgba(226,220,206,0.4); margin: 40px 0 30px;"></div>
+
+        <p style="font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 4.6vw, 32px); font-weight: 400; color: #ffffff; letter-spacing: 0.3px; margin-bottom: 16px;">Wendi Lev, LCSW, ACSW, CADC</p>
+        <p style="font-size: clamp(17px, 2.4vw, 19px); font-weight: 200; line-height: 1.5; color: #ffffff; max-width: 520px;">Thoughtful counseling for adults, couples, and families — offered in a calm, supportive setting.</p>
+
+        <div class="hero-cta" style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 40px;">
+          <a href="#" style="display: inline-flex; align-items: center; justify-content: center; padding: 20px 40px; background: #cbaa72; color: #ffffff; font-size: 14px; font-weight: 600; letter-spacing: 2.4px; transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 0 0 rgba(0,0,0,0);" style-hover="background: #d8ba84; transform: translateY(-3px); box-shadow: 0 14px 30px rgba(0,0,0,0.35);">BOOK A CONSULTATION</a>
+          <a href="#" style="display: inline-flex; align-items: center; justify-content: center; padding: 20px 40px; border: 1px solid rgba(226,220,206,0.5); color: #ffffff; font-size: 14px; font-weight: 400; letter-spacing: 2.4px; transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease, transform 0.3s ease;" style-hover="border-color: #cbb688; background: rgba(203,182,136,0.12); color: #cbb688; transform: translateY(-3px);">EXPLORE SERVICES</a>
+        </div>
+
+        <div class="hero-badge-row" style="display: flex; align-items: center; gap: 26px; margin-top: 52px;">
+          <span style="display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border: 1px solid rgba(226,220,206,0.4); border-radius: 50%;">
+            <svg width="18" height="30" viewBox="0 0 30 56" fill="none" stroke="#cbb688" stroke-width="1.5" stroke-linecap="round">
+              <path d="M15 54 C15 42 15 20 17 6" />
+              <path d="M17 10 C24 9 27 12 26 17 C21 17 17 15 17 10 Z" />
+              <path d="M16 18 C10 16 6 18 6 24 C12 24 16 22 16 18 Z" />
+              <path d="M16 26 C22 25 25 28 24 33 C19 33 16 31 16 26 Z" />
+              <path d="M15 34 C9 33 6 35 6 41 C12 41 15 39 15 34 Z" />
+            </svg>
+          </span>
+          <div class="hero-badges" style="display: flex; align-items: center; gap: 20px; font-size: 13.5px; font-weight: 400; letter-spacing: 1.6px; color: #ffffff;">
+            <span>IN-PERSON &amp; VIRTUAL SESSIONS</span>
+            <span style="width: 1px; height: 15px; background: rgba(226,220,206,0.35);"></span>
+            <span>CONFIDENTIAL</span>
+            <span style="width: 1px; height: 15px; background: rgba(226,220,206,0.35);"></span>
+            <span>EVIDENCE-INFORMED</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { menuOpen: false, revealed: false, gone: false };
+  componentDidMount() {
+    setTimeout(() => this.setState({ revealed: true }), 1500);
+    setTimeout(() => this.setState({ gone: true }), 2500);
+  }
+  renderVals() {
+    return {
+      menuOpen: this.state.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      splashVisible: !this.state.gone,
+      splashOpacity: this.state.revealed ? 0 : 1,
+      splashShift: this.state.revealed ? '-28px' : '0px',
+      contentOpacity: this.state.revealed ? 1 : 0,
+      contentShift: this.state.revealed ? '0px' : '36px',
+      bgScale: this.state.revealed ? '1' : '1.07',
+    };
+  }
+}
+</script>
+</body>
+</html>
