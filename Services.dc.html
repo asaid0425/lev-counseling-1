@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #0E0E0C; color: #EFEDE6; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden; font-feature-settings: "ss01","cv11"; }
+  ::selection { background: #EFEDE6; color: #0E0E0C; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #FFFFFF; }
+  @keyframes wlBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+  @keyframes wlHotPink { 0% { background:#24c47a; } 20% { background:#5cbf8f; } 40% { background:#17ad68; } 60% { background:#7ad9a6; } 80% { background:#12bf6f; } 100% { background:#24c47a; } }
+  @keyframes wlHotPinkBorder { 0% { border-color:#24c47a; } 20% { border-color:#5cbf8f; } 40% { border-color:#17ad68; } 60% { border-color:#7ad9a6; } 80% { border-color:#12bf6f; } 100% { border-color:#24c47a; } }
+  .wl-cursor { position: fixed; top: 0; left: 0; width: 13px; height: 13px; margin-left: -6.5px; margin-top: -6.5px; background: #24c47a; pointer-events: none; z-index: 9999; translate: -200px -200px; transition: width .5s cubic-bezier(.2,.7,.2,1), height .5s cubic-bezier(.2,.7,.2,1), rotate .5s cubic-bezier(.2,.7,.2,1), border-radius .5s cubic-bezier(.2,.7,.2,1); animation: wlHotPink 5s linear infinite; }
+  .wl-cursor.hot { width: 34px; height: 34px; margin-left: -17px; margin-top: -17px; background: transparent !important; border: 1.5px solid #24c47a; border-radius: 50%; animation: wlHotPinkBorder 5s linear infinite; }
+  @keyframes wlMenuDrop { from { opacity: 0; transform: translateY(-10px) scaleY(0.97); } to { opacity: 1; transform: none; } }
+  @keyframes wlMenuItem { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+  .wl-menu { animation: wlMenuDrop .4s cubic-bezier(.2,.75,.25,1) both; transform-origin: top center; }
+  .wl-menu > a { animation: wlMenuItem .45s cubic-bezier(.2,.75,.25,1) both; }
+  .wl-menu > a:nth-child(1) { animation-delay: .05s; }
+  .wl-menu > a:nth-child(2) { animation-delay: .11s; }
+  .wl-menu > a:nth-child(3) { animation-delay: .17s; }
+  .wl-menu > a:nth-child(4) { animation-delay: .23s; }
+  .wl-menu > a:nth-child(5) { animation-delay: .29s; }
+  .wl-burger svg line { transition: transform .38s cubic-bezier(.2,.75,.25,1), opacity .25s ease; transform-origin: center; }
+  .wl-burger[data-open="true"] .wl-l1 { transform: translateY(5px) rotate(45deg); }
+  .wl-burger[data-open="true"] .wl-l2 { opacity: 0; transform: scaleX(0.3); }
+  .wl-burger[data-open="true"] .wl-l3 { transform: translateY(-5px) rotate(-45deg); }
+  .wl-burger { transition: border-color .3s ease, background .3s ease; }
+  .wl-burger[data-open="true"] { border-color: #EFEDE6; }
+  @media (hover: none), (pointer: coarse) { .wl-cursor { display: none !important; } }
+  @media (min-width: 1500px) { .wl-root { zoom: 1.25; } }
+  @media (max-width: 980px) {
+    .wl-navlinks { display: none !important; }
+    .wl-burger { display: inline-flex !important; }
+    .wl-svchead { grid-template-columns: 1fr !important; gap: 28px !important; }
+    .wl-grid3 { grid-template-columns: 1fr !important; }
+    .wl-grid2 { grid-template-columns: 1fr !important; }
+    .wl-concierge-in { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .wl-mods { grid-template-columns: 1fr 1fr !important; }
+    .wl-sechdr { grid-template-columns: 1fr !important; gap: 18px !important; }
+    .wl-feesrow { grid-template-columns: 1fr !important; }
+    .wl-footrow { grid-template-columns: 1fr !important; gap: 18px !important; }
+    .wl-footrow > div { justify-content: flex-start !important; }
+    .wl-ctarow { grid-template-columns: 1fr !important; gap: 32px !important; }
+  }
+  @media (max-width: 600px) {
+    .wl-grid3 { grid-template-columns: 1fr !important; }
+    .wl-mods { grid-template-columns: 1fr !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</helmet>
+<div class="wl-root" style="position: relative; background: #0E0E0C; color: #EFEDE6; overflow: hidden;">
+
+  <!-- NAV -->
+  <div id="wlNav" style="position: fixed; top: 0; left: 0; right: 0; z-index: 60; padding: 14px clamp(20px,4vw,40px); border-bottom: 1px solid transparent; transition: background .5s cubic-bezier(.2,.7,.2,1), backdrop-filter .5s ease, border-color .5s ease;">
+    <nav style="max-width: 1320px; margin: 0 auto; display: flex; align-items: center; gap: 18px; height: 44px;">
+      <a href="Hero.dc.html" style="display: inline-flex; align-items: center; gap: 13px; color: #EFEDE6;">
+        <span style="display: flex; flex-direction: column; gap: 3px;">
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #EFEDE6; font-weight: 500; line-height: 1;">wendi <span style="color: #5cbf8f;">/</span> lev</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: #918F88; line-height: 1;">Clinical Therapist</span>
+        </span>
+      </a>
+      <div class="wl-navlinks" style="display: flex; gap: 0; margin-left: 22px;">
+        <a href="Services.dc.html" style="padding: 8px 14px; color: #EFEDE6; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase;">Services</a>
+        <a href="About.dc.html" style="padding: 8px 14px; color: #D2CFC6; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; transition: color .25s ease;" style-hover="color: #EFEDE6;">About</a>
+        <a href="Hero.dc.html#approach" style="padding: 8px 14px; color: #D2CFC6; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; transition: color .25s ease;" style-hover="color: #EFEDE6;">Approach</a>
+        <a href="Hero.dc.html#faq" style="padding: 8px 14px; color: #D2CFC6; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; transition: color .25s ease;" style-hover="color: #EFEDE6;">FAQ</a>
+      </div>
+      <div style="flex: 1;"></div>
+      <a href="https://www.zocdoc.com/practice/wendi-lev-lcsw-acsw-acsw-lev-counseling-34364?lock=true&amp;isNewPatient=false&amp;referrerType=widget" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 10px; height: 38px; padding: 0 18px; background: #EFEDE6; color: #0E0E0C; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; border: 1.25px solid transparent; transition: background .35s ease, transform .35s ease;" style-hover="background: #d8d6cd; transform: translateY(-1px);">BOOK ONLINE →</a>
+      <button class="wl-burger" data-open="{{ menuOpen }}" onClick="{{ toggleMenu }}" aria-label="Menu" style="display: none; align-items: center; justify-content: center; width: 40px; height: 40px; background: transparent; border: 1.25px solid #5D5C56; color: #EFEDE6; cursor: pointer; padding: 0;">
+        <svg width="18" height="16" viewBox="0 0 18 16" fill="none" stroke="#EFEDE6" stroke-width="1.3" stroke-linecap="round"><line class="wl-l1" x1="0" y1="3" x2="18" y2="3" /><line class="wl-l2" x1="0" y1="8" x2="18" y2="8" /><line class="wl-l3" x1="0" y1="13" x2="18" y2="13" /></svg>
+      </button>
+    </nav>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <nav class="wl-menu" style="max-width: 1320px; margin: 8px auto 0; display: flex; flex-direction: column; border-top: 1px solid rgba(239,237,230,0.12); padding-top: 8px;">
+        <a href="Services.dc.html" onClick="{{ closeMenu }}" style="padding: 13px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #EFEDE6; border-bottom: 1px solid rgba(239,237,230,0.08);">Services</a>
+        <a href="About.dc.html" onClick="{{ closeMenu }}" style="padding: 13px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; border-bottom: 1px solid rgba(239,237,230,0.08);">About</a>
+        <a href="Hero.dc.html#approach" onClick="{{ closeMenu }}" style="padding: 13px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; border-bottom: 1px solid rgba(239,237,230,0.08);">Approach</a>
+        <a href="Hero.dc.html#faq" onClick="{{ closeMenu }}" style="padding: 13px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6;">FAQ</a>
+      </nav>
+    </sc-if>
+  </div>
+
+  <main style="padding-top: 72px;">
+
+    <!-- SERVICES HERO -->
+    <section style="padding: 80px 0 60px;">
+      <div style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px);">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-bottom: 56px; flex-wrap: wrap;">
+          <a href="Hero.dc.html" data-reveal style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; display: inline-flex; align-items: center; gap: 10px; transition: gap .3s ease;" style-hover="gap: 14px;"><span>←</span> back home</a>
+          <span data-reveal style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #5cbf8f;">/ services</span>
+        </div>
+        <div class="wl-svchead" style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 72px; align-items: end;">
+          <h1 data-reveal style="font-size: clamp(44px,7vw,110px); line-height: 0.96; letter-spacing: -0.045em; font-weight: 300; margin: 0; color: #EFEDE6; text-transform: lowercase; text-wrap: balance;">how i <b style="font-weight: 500;">help</b> <span style="color: #5cbf8f; font-weight: 300;">/</span> a full menu of <b style="font-weight: 500;">care.</b></h1>
+          <div data-reveal style="display: flex; flex-direction: column; gap: 20px;">
+            <p style="margin: 0; font-size: 16.5px; line-height: 1.6; color: #D2CFC6; max-width: 42ch;">Every path starts with a conversation. Whether you're carrying stress alone or working through something with a partner, therapy is tailored to you — sometimes practical and skills-based, other times deeper and insight-oriented.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px 24px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #918F88;">
+              <span><b style="color: #EFEDE6; font-weight: 500;">In-person</b> · downtown chicago</span>
+              <span><b style="color: #EFEDE6; font-weight: 500;">Virtual</b> · across illinois</span>
+            </div>
+          </div>
+        </div>
+        <div data-reveal style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 48px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;">
+          <a href="#individuals" style="padding: 9px 16px; border: 1px solid rgba(239,237,230,0.24); color: #D2CFC6; transition: border-color .3s ease, color .3s ease;" style-hover="border-color: #5cbf8f; color: #EFEDE6;">01 / individuals</a>
+          <a href="#couples" style="padding: 9px 16px; border: 1px solid rgba(239,237,230,0.24); color: #D2CFC6; transition: border-color .3s ease, color .3s ease;" style-hover="border-color: #5cbf8f; color: #EFEDE6;">02 / couples &amp; relationships</a>
+          <a href="#groups" style="padding: 9px 16px; border: 1px solid rgba(239,237,230,0.24); color: #D2CFC6; transition: border-color .3s ease, color .3s ease;" style-hover="border-color: #5cbf8f; color: #EFEDE6;">03 / groups &amp; workshops</a>
+          <a href="#concierge" style="padding: 9px 16px; border: 1px solid rgba(92,191,143,0.4); color: #EFEDE6; transition: border-color .3s ease, color .3s ease;" style-hover="border-color: #5cbf8f; color: #FFFFFF;">★ / concierge</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- INDIVIDUALS -->
+    <section id="individuals" style="padding: 90px 0 40px; border-top: 1px solid rgba(239,237,230,0.12);">
+      <div style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px);">
+        <div class="wl-sechdr" style="display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: baseline; padding: 40px 0 56px;">
+          <div data-reveal style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D2CFC6; letter-spacing: 0.2em; text-transform: uppercase; display: flex; align-items: center; gap: 14px;"><span style="width: 4px; height: 4px; background: #5cbf8f; display: inline-block;"></span> 01 <span style="width: 14px; height: 1.25px; background: #5cbf8f; display: inline-block;"></span> for individuals</div>
+          <h2 data-reveal style="font-size: clamp(30px,3.8vw,52px); font-weight: 300; letter-spacing: -0.035em; line-height: 1.0; margin: 0; text-transform: lowercase;">one-on-one <b style="font-weight: 500;">support</b> <span style="color: #5cbf8f;">/</span> for the weight you carry.</h2>
+        </div>
+        <div class="wl-grid3" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(239,237,230,0.12); border: 1px solid rgba(239,237,230,0.12);">
+          <div data-reveal style="background: #0E0E0C; padding: 40px 30px 30px; display: flex; flex-direction: column; min-height: 400px; transition: background .4s ease;" style-hover="background: #161613;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #918F88; letter-spacing: 0.22em; text-transform: uppercase;">svc / 01</span></div>
+            <h3 style="margin: 0 0 14px; font-weight: 300; font-size: 29px; line-height: 1.0; letter-spacing: -0.035em; text-transform: lowercase; color: #EFEDE6;">individual <b style="font-weight: 500;">therapy</b></h3>
+            <p style="margin: 0; color: #918F88; font-size: 14px; line-height: 1.55;">A mirror to look within — integrative, one-on-one work to reduce stress, quiet self-doubt, and move forward when you feel stuck.</p>
+            <div style="margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: #D2CFC6;"><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Stress</span><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Life transitions</span><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Sleep &amp; anger</span></div>
+            <div style="margin-top: auto; padding-top: 26px;"><a href="Hero.dc.html#contact" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #EFEDE6; letter-spacing: 0.2em; text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid #EFEDE6; transition: gap .3s ease;" style-hover="gap: 16px;">Enquire →</a></div>
+          </div>
+          <div data-reveal style="background: #0E0E0C; padding: 40px 30px 30px; display: flex; flex-direction: column; min-height: 400px; transition: background .4s ease;" style-hover="background: #161613;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #918F88; letter-spacing: 0.22em; text-transform: uppercase;">svc / 02</span></div>
+            <h3 style="margin: 0 0 14px; font-weight: 300; font-size: 29px; line-height: 1.0; letter-spacing: -0.035em; text-transform: lowercase; color: #EFEDE6;">anxiety <span style="color: #5cbf8f;">&amp;</span> <b style="font-weight: 500;">depression</b></h3>
+            <p style="margin: 0; color: #918F88; font-size: 14px; line-height: 1.55;">Anxiety therapy has the highest success rate of any mental health condition. Break free from the anxiety–avoidance cycle and lift the fog of depression — and regain confidence, optimism, and balance.</p>
+            <div style="margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: #D2CFC6;"><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">CBT</span><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Panic &amp; worry</span><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Low mood</span></div>
+            <div style="margin-top: auto; padding-top: 26px;"><a href="Hero.dc.html#contact" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #EFEDE6; letter-spacing: 0.2em; text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid #EFEDE6; transition: gap .3s ease;" style-hover="gap: 16px;">Enquire →</a></div>
+          </div>
+          <div data-reveal style="background: #0E0E0C; padding: 40px 30px 30px; display: flex; flex-direction: column; min-height: 400px; transition: background .4s ease;" style-hover="background: #161613;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #918F88; letter-spacing: 0.22em; text-transform: uppercase;">svc / 03</span></div>
+            <h3 style="margin: 0 0 14px; font-weight: 300; font-size: 29px; line-height: 1.0; letter-spacing: -0.035em; text-transform: lowercase; color: #EFEDE6;">self-esteem <span style="color: #5cbf8f;">/</span> <b style="font-weight: 500;">confidence</b></h3>
+            <p style="margin: 0; color: #918F88; font-size: 14px; line-height: 1.55;">For imposter syndrome, perfectionism, and people-pleasing — build genuine confidence and learn to accept yourself.</p>
+            <div style="margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: #D2CFC6;"><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Imposter syndrome</span><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Perfectionism</span></div>
+            <div style="margin-top: auto; padding-top: 26px;"><a href="Hero.dc.html#contact" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #EFEDE6; letter-spacing: 0.2em; text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid #EFEDE6; transition: gap .3s ease;" style-hover="gap: 16px;">Enquire →</a></div>
+          </div>
+          <div data-reveal style="background: #0E0E0C; padding: 40px 30px 30px; display: flex; flex-direction: column; min-height: 400px; transition: background .4s ease;" style-hover="background: #161613;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #918F88; letter-spacing: 0.22em; text-transform: uppercase;">svc / 04</span></div>
+            <h3 style="margin: 0 0 14px; font-weight: 300; font-size: 29px; line-height: 1.0; letter-spacing: -0.035em; text-transform: lowercase; color: #EFEDE6;">therapy <span style="color: #5cbf8f;">/</span> for <b style="font-weight: 500;">men</b></h3>
+            <p style="margin: 0; color: #918F88; font-size: 14px; line-height: 1.55;">A direct, supportive space for men navigating pressure, identity, relationships, and emotional burnout — and learning to put it into words.</p>
+            <div style="margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: #D2CFC6;"><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Male-specific issues</span><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Emotional expression</span></div>
+            <div style="margin-top: auto; padding-top: 26px;"><a href="Hero.dc.html#contact" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #EFEDE6; letter-spacing: 0.2em; text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid #EFEDE6; transition: gap .3s ease;" style-hover="gap: 16px;">Enquire →</a></div>
+          </div>
+          <div data-reveal style="background: #0E0E0C; padding: 40px 30px 30px; display: flex; flex-direction: column; min-height: 400px; transition: background .4s ease;" style-hover="background: #161613;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #918F88; letter-spacing: 0.22em; text-transform: uppercase;">svc / 05</span></div>
+            <h3 style="margin: 0 0 14px; font-weight: 300; font-size: 29px; line-height: 1.0; letter-spacing: -0.035em; text-transform: lowercase; color: #EFEDE6;">coaching <span style="color: #5cbf8f;">/</span> for <b style="font-weight: 500;">professionals</b></h3>
+            <p style="margin: 0; color: #918F88; font-size: 14px; line-height: 1.55;">For high-achieving professionals and entrepreneurs — reduce workplace stress and burnout, set long-term goals, and perform at your best.</p>
+            <div style="margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: #D2CFC6;"><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Burnout</span><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Peak performance</span></div>
+            <div style="margin-top: auto; padding-top: 26px;"><a href="Hero.dc.html#contact" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #EFEDE6; letter-spacing: 0.2em; text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid #EFEDE6; transition: gap .3s ease;" style-hover="gap: 16px;">Enquire →</a></div>
+          </div>
+          <div data-reveal style="background: #0E0E0C; padding: 40px 30px 30px; display: flex; flex-direction: column; min-height: 400px; transition: background .4s ease;" style-hover="background: #161613;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #918F88; letter-spacing: 0.22em; text-transform: uppercase;">svc / 06</span></div>
+            <h3 style="margin: 0 0 14px; font-weight: 300; font-size: 29px; line-height: 1.0; letter-spacing: -0.035em; text-transform: lowercase; color: #EFEDE6;">substance use <span style="color: #5cbf8f;">&amp;</span> <b style="font-weight: 500;">recovery</b></h3>
+            <p style="margin: 0; color: #918F88; font-size: 14px; line-height: 1.55;">Substance use disorders are treatable conditions, not moral failings. CADC-certified, judgment-free support to break the cycle, build a life aligned with your values, and enjoy it again.</p>
+            <div style="margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: #D2CFC6;"><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Addiction</span><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Dual diagnosis</span></div>
+            <div style="margin-top: auto; padding-top: 26px;"><a href="Hero.dc.html#contact" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #EFEDE6; letter-spacing: 0.2em; text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid #EFEDE6; transition: gap .3s ease;" style-hover="gap: 16px;">Enquire →</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONCIERGE -->
+    <section id="concierge" style="padding: 90px 0;">
+      <div style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px);">
+        <div class="wl-concierge" data-reveal style="position: relative; overflow: hidden; border: 1px solid rgba(92,191,143,0.35); background: linear-gradient(135deg, #12140F 0%, #0E0E0C 60%);">
+          <div class="wl-concierge-in" style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; padding: clamp(34px,4vw,60px);">
+            <div style="display: flex; flex-direction: column; gap: 22px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #5cbf8f; letter-spacing: 0.22em; text-transform: uppercase; display: flex; align-items: center; gap: 12px;"><span style="width: 6px; height: 6px; background: #5cbf8f; display: inline-block;"></span> concierge · by membership</div>
+              <h2 style="margin: 0; font-size: clamp(32px,4vw,58px); font-weight: 300; letter-spacing: -0.04em; line-height: 1.0; text-transform: lowercase;">therapy that <span style="color: #5cbf8f;">/</span> works around <b style="font-weight: 500;">your life.</b></h2>
+              <p style="margin: 0; color: #D2CFC6; font-size: 16px; line-height: 1.6; max-width: 46ch;">A high-end, membership-style practice built around your goals — not a one-size-fits-all model. For busy professionals and high achievers navigating burnout, balance, and big transitions who want depth, discretion, and access.</p>
+              <a href="https://www.zocdoc.com/practice/wendi-lev-lcsw-acsw-acsw-lev-counseling-34364?lock=true&amp;isNewPatient=false&amp;referrerType=widget" target="_blank" rel="noopener" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 22px; background: #5cbf8f; color: #0B120E; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; transition: background .35s ease, transform .35s ease;" style-hover="background: #6fd0a0; transform: translateY(-1px);">Enquire about membership →</a>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(239,237,230,0.12); border: 1px solid rgba(239,237,230,0.12); align-self: start;">
+              <div style="background: #0E0E0C; padding: 22px 20px; display: flex; flex-direction: column; gap: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: #5cbf8f; letter-spacing: 0.16em; text-transform: uppercase;">Direct access</span><span style="color: #D2CFC6; font-size: 13.5px; line-height: 1.5;">Phone, email &amp; secure messaging — same-day sessions when it's urgent.</span></div>
+              <div style="background: #0E0E0C; padding: 22px 20px; display: flex; flex-direction: column; gap: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: #5cbf8f; letter-spacing: 0.16em; text-transform: uppercase;">Total flexibility</span><span style="color: #D2CFC6; font-size: 13.5px; line-height: 1.5;">In-person in Chicago or teletherapy, on your schedule.</span></div>
+              <div style="background: #0E0E0C; padding: 22px 20px; display: flex; flex-direction: column; gap: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: #5cbf8f; letter-spacing: 0.16em; text-transform: uppercase;">Complete privacy</span><span style="color: #D2CFC6; font-size: 13.5px; line-height: 1.5;">No insurance, no diagnostic labels on your record.</span></div>
+              <div style="background: #0E0E0C; padding: 22px 20px; display: flex; flex-direction: column; gap: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: #5cbf8f; letter-spacing: 0.16em; text-transform: uppercase;">Unrushed time</span><span style="color: #D2CFC6; font-size: 13.5px; line-height: 1.5;">No clock-watching — the depth of care you actually need.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COUPLES -->
+    <section id="couples" style="padding: 90px 0 40px; background: #161613; border-top: 1px solid rgba(239,237,230,0.12); border-bottom: 1px solid rgba(239,237,230,0.12);">
+      <div style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px);">
+        <div class="wl-sechdr" style="display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: baseline; padding: 40px 0 56px;">
+          <div data-reveal style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D2CFC6; letter-spacing: 0.2em; text-transform: uppercase; display: flex; align-items: center; gap: 14px;"><span style="width: 4px; height: 4px; background: #5cbf8f; display: inline-block;"></span> 02 <span style="width: 14px; height: 1.25px; background: #5cbf8f; display: inline-block;"></span> couples &amp; relationships</div>
+          <h2 data-reveal style="font-size: clamp(30px,3.8vw,52px); font-weight: 300; letter-spacing: -0.035em; line-height: 1.0; margin: 0; text-transform: lowercase;">real tools <span style="color: #5cbf8f;">/</span> to <b style="font-weight: 500;">reconnect</b> and repair.</h2>
+        </div>
+        <div class="wl-grid3" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(239,237,230,0.12); border: 1px solid rgba(239,237,230,0.12);">
+          <div data-reveal style="background: #161613; padding: 40px 30px 30px; display: flex; flex-direction: column; min-height: 400px; transition: background .4s ease;" style-hover="background: #1E1E1A;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #918F88; letter-spacing: 0.22em; text-transform: uppercase;">svc / 07</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #5cbf8f; letter-spacing: 0.2em; text-transform: uppercase;">Gottman</span></div>
+            <h3 style="margin: 0 0 14px; font-weight: 300; font-size: 29px; line-height: 1.0; letter-spacing: -0.035em; text-transform: lowercase; color: #EFEDE6;">couples <b style="font-weight: 500;">therapy</b></h3>
+            <p style="margin: 0; color: #918F88; font-size: 14px; line-height: 1.55;">Move past walking-on-eggshells conflict and quiet distance. Rebuild friendship, communication, and intimacy — most couples reach their goals in 15–25 sessions.</p>
+            <div style="margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: #D2CFC6;"><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Gottman Method</span><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">EFT</span></div>
+            <div style="margin-top: auto; padding-top: 26px;"><a href="Hero.dc.html#contact" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #EFEDE6; letter-spacing: 0.2em; text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid #EFEDE6; transition: gap .3s ease;" style-hover="gap: 16px;">Enquire →</a></div>
+          </div>
+          <div data-reveal style="background: #161613; padding: 40px 30px 30px; display: flex; flex-direction: column; min-height: 400px; transition: background .4s ease;" style-hover="background: #1E1E1A;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #918F88; letter-spacing: 0.22em; text-transform: uppercase;">svc / 08</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #5cbf8f; letter-spacing: 0.2em; text-transform: uppercase;">Prepare/Enrich</span></div>
+            <h3 style="margin: 0 0 14px; font-weight: 300; font-size: 29px; line-height: 1.0; letter-spacing: -0.035em; text-transform: lowercase; color: #EFEDE6;">premarital <b style="font-weight: 500;">counseling</b></h3>
+            <p style="margin: 0; color: #918F88; font-size: 14px; line-height: 1.55;">A research-based Prepare/Enrich assessment over 6–10 sessions — clarify expectations around communication, finances, family, and intimacy, and build a foundation that lasts.</p>
+            <div style="margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: #D2CFC6;"><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Expectations</span><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Shared meaning</span></div>
+            <div style="margin-top: auto; padding-top: 26px;"><a href="Hero.dc.html#contact" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #EFEDE6; letter-spacing: 0.2em; text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid #EFEDE6; transition: gap .3s ease;" style-hover="gap: 16px;">Enquire →</a></div>
+          </div>
+          <div data-reveal style="background: #161613; padding: 40px 30px 30px; display: flex; flex-direction: column; min-height: 400px; transition: background .4s ease;" style-hover="background: #1E1E1A;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #918F88; letter-spacing: 0.22em; text-transform: uppercase;">svc / 09</span></div>
+            <h3 style="margin: 0 0 14px; font-weight: 300; font-size: 29px; line-height: 1.0; letter-spacing: -0.035em; text-transform: lowercase; color: #EFEDE6;">sex <b style="font-weight: 500;">therapy</b></h3>
+            <p style="margin: 0; color: #918F88; font-size: 14px; line-height: 1.55;">A safe, nonjudgmental space to talk openly about intimacy, desire, and sexual concerns — individually or as a couple.</p>
+            <div style="margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: #D2CFC6;"><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Intimacy</span><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Desire</span></div>
+            <div style="margin-top: auto; padding-top: 26px;"><a href="Hero.dc.html#contact" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #EFEDE6; letter-spacing: 0.2em; text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid #EFEDE6; transition: gap .3s ease;" style-hover="gap: 16px;">Enquire →</a></div>
+          </div>
+          <div data-reveal style="background: #161613; padding: 40px 30px 30px; display: flex; flex-direction: column; min-height: 400px; transition: background .4s ease;" style-hover="background: #1E1E1A;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #918F88; letter-spacing: 0.22em; text-transform: uppercase;">svc / 10</span></div>
+            <h3 style="margin: 0 0 14px; font-weight: 300; font-size: 29px; line-height: 1.0; letter-spacing: -0.035em; text-transform: lowercase; color: #EFEDE6;">affair <span style="color: #5cbf8f;">&amp;</span> <b style="font-weight: 500;">infidelity</b></h3>
+            <p style="margin: 0; color: #918F88; font-size: 14px; line-height: 1.55;">After betrayal, therapy can hold space for both partners — to process the hurt and decide, together, whether to rebuild trust or find closure.</p>
+            <div style="margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: #D2CFC6;"><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Trust repair</span><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Betrayal</span></div>
+            <div style="margin-top: auto; padding-top: 26px;"><a href="Hero.dc.html#contact" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #EFEDE6; letter-spacing: 0.2em; text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid #EFEDE6; transition: gap .3s ease;" style-hover="gap: 16px;">Enquire →</a></div>
+          </div>
+          <div data-reveal style="background: #161613; padding: 40px 30px 30px; display: flex; flex-direction: column; min-height: 400px; transition: background .4s ease;" style-hover="background: #1E1E1A;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #918F88; letter-spacing: 0.22em; text-transform: uppercase;">svc / 11</span></div>
+            <h3 style="margin: 0 0 14px; font-weight: 300; font-size: 29px; line-height: 1.0; letter-spacing: -0.035em; text-transform: lowercase; color: #EFEDE6;">separation <span style="color: #5cbf8f;">&amp;</span> <b style="font-weight: 500;">divorce</b></h3>
+            <p style="margin: 0; color: #918F88; font-size: 14px; line-height: 1.55;">Steady support through the hardest transitions — including divorce mediation — so you can move through change with less conflict and more clarity.</p>
+            <div style="margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: #D2CFC6;"><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Mediation</span><span style="padding: 5px 10px; border: 1px solid rgba(239,237,230,0.16);">Breakup recovery</span></div>
+            <div style="margin-top: auto; padding-top: 26px;"><a href="Hero.dc.html#contact" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #EFEDE6; letter-spacing: 0.2em; text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid #EFEDE6; transition: gap .3s ease;" style-hover="gap: 16px;">Enquire →</a></div>
+          </div>
+          <div data-reveal style="background: #161613; padding: 40px 30px 30px; display: flex; flex-direction: column; min-height: 400px; justify-content: center; align-items: flex-start; gap: 18px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #5cbf8f; letter-spacing: 0.22em; text-transform: uppercase;">— · — —</span>
+            <p style="margin: 0; font-family: 'Inter Tight'; font-weight: 300; font-size: 24px; line-height: 1.15; letter-spacing: -0.03em; color: #EFEDE6; text-transform: lowercase;">not sure which fits? <b style="font-weight: 500;">start with a free consult.</b></p>
+            <a href="https://www.zocdoc.com/practice/wendi-lev-lcsw-acsw-acsw-lev-counseling-34364?lock=true&amp;isNewPatient=false&amp;referrerType=widget" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 20px; background: #EFEDE6; color: #0E0E0C; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; transition: background .35s ease, transform .35s ease;" style-hover="background: #d8d6cd; transform: translateY(-1px);">Book 15-min call →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GROUPS -->
+    <section id="groups" style="padding: 90px 0 40px;">
+      <div style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px);">
+        <div class="wl-sechdr" style="display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: baseline; padding: 40px 0 56px;">
+          <div data-reveal style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D2CFC6; letter-spacing: 0.2em; text-transform: uppercase; display: flex; align-items: center; gap: 14px;"><span style="width: 4px; height: 4px; background: #5cbf8f; display: inline-block;"></span> 03 <span style="width: 14px; height: 1.25px; background: #5cbf8f; display: inline-block;"></span> groups &amp; workshops</div>
+          <h2 data-reveal style="font-size: clamp(30px,3.8vw,52px); font-weight: 300; letter-spacing: -0.035em; line-height: 1.0; margin: 0; text-transform: lowercase;">learn <b style="font-weight: 500;">alongside</b> <span style="color: #5cbf8f;">/</span> others on the path.</h2>
+        </div>
+        <div class="wl-grid2" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: rgba(239,237,230,0.12); border: 1px solid rgba(239,237,230,0.12);">
+          <div data-reveal style="background: #0E0E0C; padding: 44px 34px 34px; display: flex; flex-direction: column; min-height: 340px; transition: background .4s ease;" style-hover="background: #161613;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #918F88; letter-spacing: 0.22em; text-transform: uppercase;">svc / 12</span></div>
+            <h3 style="margin: 0 0 14px; font-weight: 300; font-size: 30px; line-height: 1.0; letter-spacing: -0.035em; text-transform: lowercase; color: #EFEDE6;">couples <b style="font-weight: 500;">workshops</b></h3>
+            <p style="margin: 0; color: #918F88; font-size: 14.5px; line-height: 1.55; max-width: 46ch;">Structured, research-based workshops including "The Seven Principles to Make Your Marriage Work" and a version for singles — practical skills in a supportive group setting.</p>
+            <div style="margin-top: auto; padding-top: 26px;"><a href="Hero.dc.html#contact" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #EFEDE6; letter-spacing: 0.2em; text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid #EFEDE6; transition: gap .3s ease;" style-hover="gap: 16px;">Enquire →</a></div>
+          </div>
+          <div data-reveal style="background: #0E0E0C; padding: 44px 34px 34px; display: flex; flex-direction: column; min-height: 340px; transition: background .4s ease;" style-hover="background: #161613;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #918F88; letter-spacing: 0.22em; text-transform: uppercase;">svc / 13</span></div>
+            <h3 style="margin: 0 0 14px; font-weight: 300; font-size: 30px; line-height: 1.0; letter-spacing: -0.035em; text-transform: lowercase; color: #EFEDE6;">dbt skills <b style="font-weight: 500;">groups</b></h3>
+            <p style="margin: 0; color: #918F88; font-size: 14.5px; line-height: 1.55; max-width: 46ch;">Learn and practice dialectical behavior therapy skills — emotion regulation, distress tolerance, and mindfulness — with others working toward the same steadiness.</p>
+            <div style="margin-top: auto; padding-top: 26px;"><a href="Hero.dc.html#contact" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #EFEDE6; letter-spacing: 0.2em; text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid #EFEDE6; transition: gap .3s ease;" style-hover="gap: 16px;">Enquire →</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODALITIES -->
+    <section id="modalities" style="padding: 90px 0; background: #161613; border-top: 1px solid rgba(239,237,230,0.12); border-bottom: 1px solid rgba(239,237,230,0.12);">
+      <div style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px);">
+        <div class="wl-sechdr" style="display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: baseline; padding: 0 0 52px;">
+          <div data-reveal style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D2CFC6; letter-spacing: 0.2em; text-transform: uppercase; display: flex; align-items: center; gap: 14px;"><span style="width: 4px; height: 4px; background: #5cbf8f; display: inline-block;"></span> 04 <span style="width: 14px; height: 1.25px; background: #5cbf8f; display: inline-block;"></span> evidence-based modalities</div>
+          <div data-reveal style="display: flex; flex-direction: column; gap: 18px;">
+            <h2 style="font-size: clamp(30px,3.8vw,52px); font-weight: 300; letter-spacing: -0.035em; line-height: 1.0; margin: 0; text-transform: lowercase;">the methods <span style="color: #5cbf8f;">/</span> i <b style="font-weight: 500;">draw from.</b></h2>
+            <p style="margin: 0; color: #D2CFC6; font-size: 15.5px; line-height: 1.6; max-width: 58ch;">Treatment is tailored to you — combining the most effective traditional and evidence-based approaches, matched to your goals rather than a fixed protocol.</p>
+          </div>
+        </div>
+        <div class="wl-mods" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(239,237,230,0.12); border: 1px solid rgba(239,237,230,0.12);">
+          <div data-reveal style="background: #161613; padding: 26px 22px; display: flex; flex-direction: column; gap: 9px; min-height: 132px; transition: background .4s ease;" style-hover="background: #1E1E1A;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #5cbf8f; letter-spacing: 0.2em; text-transform: uppercase;">01</span><h3 style="margin: 0; font-size: 17px; font-weight: 500; letter-spacing: -0.015em; color: #EFEDE6;">CBT</h3><p style="margin: 0; color: #918F88; font-size: 12.5px; line-height: 1.5;">Short-term, solution-focused; reframe the thoughts that keep you stuck.</p></div>
+          <div data-reveal style="background: #161613; padding: 26px 22px; display: flex; flex-direction: column; gap: 9px; min-height: 132px; transition: background .4s ease;" style-hover="background: #1E1E1A;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #5cbf8f; letter-spacing: 0.2em; text-transform: uppercase;">02</span><h3 style="margin: 0; font-size: 17px; font-weight: 500; letter-spacing: -0.015em; color: #EFEDE6;">DBT &amp; ACT</h3><p style="margin: 0; color: #918F88; font-size: 12.5px; line-height: 1.5;">Emotion regulation, distress tolerance, and values-driven action.</p></div>
+          <div data-reveal style="background: #161613; padding: 26px 22px; display: flex; flex-direction: column; gap: 9px; min-height: 132px; transition: background .4s ease;" style-hover="background: #1E1E1A;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #5cbf8f; letter-spacing: 0.2em; text-transform: uppercase;">03</span><h3 style="margin: 0; font-size: 17px; font-weight: 500; letter-spacing: -0.015em; color: #EFEDE6;">Schema Therapy</h3><p style="margin: 0; color: #918F88; font-size: 12.5px; line-height: 1.5;">Reach the long-standing patterns beneath recurring struggles.</p></div>
+          <div data-reveal style="background: #161613; padding: 26px 22px; display: flex; flex-direction: column; gap: 9px; min-height: 132px; transition: background .4s ease;" style-hover="background: #1E1E1A;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #5cbf8f; letter-spacing: 0.2em; text-transform: uppercase;">04</span><h3 style="margin: 0; font-size: 17px; font-weight: 500; letter-spacing: -0.015em; color: #EFEDE6;">Psychodynamic</h3><p style="margin: 0; color: #918F88; font-size: 12.5px; line-height: 1.5;">Understand the unconscious drivers behind how you act and relate.</p></div>
+          <div data-reveal style="background: #161613; padding: 26px 22px; display: flex; flex-direction: column; gap: 9px; min-height: 132px; transition: background .4s ease;" style-hover="background: #1E1E1A;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #5cbf8f; letter-spacing: 0.2em; text-transform: uppercase;">05</span><h3 style="margin: 0; font-size: 17px; font-weight: 500; letter-spacing: -0.015em; color: #EFEDE6;">Gottman Method</h3><p style="margin: 0; color: #918F88; font-size: 12.5px; line-height: 1.5;">Practical couples skills for communication, conflict, and connection.</p></div>
+          <div data-reveal style="background: #161613; padding: 26px 22px; display: flex; flex-direction: column; gap: 9px; min-height: 132px; transition: background .4s ease;" style-hover="background: #1E1E1A;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #5cbf8f; letter-spacing: 0.2em; text-transform: uppercase;">06</span><h3 style="margin: 0; font-size: 17px; font-weight: 500; letter-spacing: -0.015em; color: #EFEDE6;">EFT</h3><p style="margin: 0; color: #918F88; font-size: 12.5px; line-height: 1.5;">Emotionally Focused Therapy — build secure, trusting bonds.</p></div>
+          <div data-reveal style="background: #161613; padding: 26px 22px; display: flex; flex-direction: column; gap: 9px; min-height: 132px; transition: background .4s ease;" style-hover="background: #1E1E1A;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #5cbf8f; letter-spacing: 0.2em; text-transform: uppercase;">07</span><h3 style="margin: 0; font-size: 17px; font-weight: 500; letter-spacing: -0.015em; color: #EFEDE6;">Motivational Interviewing</h3><p style="margin: 0; color: #918F88; font-size: 12.5px; line-height: 1.5;">Find and strengthen your own motivation for change.</p></div>
+          <div data-reveal style="background: #161613; padding: 26px 22px; display: flex; flex-direction: column; gap: 9px; min-height: 132px; transition: background .4s ease;" style-hover="background: #1E1E1A;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #5cbf8f; letter-spacing: 0.2em; text-transform: uppercase;">08</span><h3 style="margin: 0; font-size: 17px; font-weight: 500; letter-spacing: -0.015em; color: #EFEDE6;">Prepare/Enrich &amp; SFBT</h3><p style="margin: 0; color: #918F88; font-size: 12.5px; line-height: 1.5;">Assessment-based premarital work and solution-focused brief therapy.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEES -->
+    <section style="padding: 60px 0 90px;">
+      <div style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px);">
+        <div class="wl-feesrow" style="display: grid; grid-template-columns: 5fr 7fr; gap: 64px; align-items: start; padding-top: 56px; border-top: 1px solid rgba(239,237,230,0.12);">
+          <div data-reveal style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D2CFC6; letter-spacing: 0.2em; text-transform: uppercase; display: flex; align-items: center; gap: 14px;"><span style="width: 4px; height: 4px; background: #5cbf8f; display: inline-block;"></span> fees</div>
+            <h2 style="font-size: clamp(30px,3.6vw,48px); font-weight: 300; letter-spacing: -0.035em; line-height: 1.02; margin: 0; text-transform: lowercase;">simple, <b style="font-weight: 500;">transparent</b> pricing.</h2>
+            <p style="color: #918F88; font-size: 14.5px; line-height: 1.6; max-width: 40ch; margin: 0;">The first 15-minute consultation is free. I accept Blue Cross Blue Shield and Anthem BCBS PPO; out-of-network receipts provided on request.</p>
+          </div>
+          <div data-reveal style="display: flex; flex-direction: column; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; padding: 16px 0; border-bottom: 1px solid rgba(239,237,230,0.12); color: #D2CFC6;">15-min consultation <span style="color: #7fd0a4; font-size: 13px;">Free</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; padding: 16px 0; border-bottom: 1px solid rgba(239,237,230,0.12); color: #D2CFC6;">Individual · 75-min assessment <span style="color: #EFEDE6; font-size: 13px;">$190</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; padding: 16px 0; border-bottom: 1px solid rgba(239,237,230,0.12); color: #D2CFC6;">Individual · 60-min ongoing <span style="color: #EFEDE6; font-size: 13px;">$165</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; padding: 16px 0; border-bottom: 1px solid rgba(239,237,230,0.12); color: #D2CFC6;">Couples · 90-min assessment <span style="color: #EFEDE6; font-size: 13px;">$300</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; padding: 16px 0; border-bottom: 1px solid rgba(239,237,230,0.12); color: #D2CFC6;">Couples · 75-min ongoing <span style="color: #EFEDE6; font-size: 13px;">$200</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; padding: 16px 0; color: #D2CFC6;">Group · 90-min <span style="color: #EFEDE6; font-size: 13px;">$90</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="padding: 130px 0; background: #0E0E0C; border-top: 1px solid rgba(239,237,230,0.12);">
+      <div class="wl-ctarow" style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px); display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center;">
+        <h2 data-reveal style="font-family: 'Inter Tight'; font-weight: 300; font-size: clamp(40px,6vw,92px); line-height: 0.98; letter-spacing: -0.045em; margin: 0; text-transform: lowercase; color: #EFEDE6; text-wrap: balance;">ready when <span style="color: #5cbf8f;">/</span> <b style="font-weight: 500;">you are.</b></h2>
+        <div data-reveal style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start;">
+          <a href="https://www.zocdoc.com/practice/wendi-lev-lcsw-acsw-acsw-lev-counseling-34364?lock=true&amp;isNewPatient=false&amp;referrerType=widget" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 24px; background: #EFEDE6; color: #0E0E0C; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; transition: background .35s ease, transform .35s ease;" style-hover="background: #d8d6cd; transform: translateY(-1px);">Book online →</a>
+          <a href="tel:3128991120" style="display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 24px; border: 1.25px solid #EFEDE6; color: #EFEDE6; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; transition: background .35s ease, color .35s ease, transform .35s ease;" style-hover="background: #EFEDE6; color: #0E0E0C; transform: translateY(-1px);">(312) 899-1120</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="background: #0E0E0C; color: #918F88; padding: 52px 0; border-top: 1px solid rgba(239,237,230,0.12);">
+      <div class="wl-footrow" style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px); display: grid; grid-template-columns: auto auto auto; justify-content: space-between; gap: 32px; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;">
+        <div style="display: flex; align-items: center; gap: 16px;">Wendi Lev, LCSW · ACSW · CADC</div>
+        <div style="display: flex; justify-content: center; gap: 28px;"><a href="Services.dc.html" style="transition: color .3s ease; color: #EFEDE6;" style-hover="color: #FFFFFF;">Services</a><a href="About.dc.html" style="transition: color .3s ease;" style-hover="color: #EFEDE6;">About</a><a href="Hero.dc.html#contact" style="transition: color .3s ease;" style-hover="color: #EFEDE6;">Contact</a></div>
+        <div style="display: flex; align-items: center; gap: 14px; justify-content: flex-end;">© 2026 <span style="color: #5cbf8f;">— · — —</span></div>
+      </div>
+    </footer>
+
+  </main>
+
+  <div class="wl-cursor" id="wlCursor"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { menuOpen: false };
+
+  componentDidMount() {
+    const nav = document.getElementById('wlNav');
+    const onScroll = () => {
+      if (!nav) return;
+      if (window.scrollY > 20) {
+        nav.style.background = 'rgba(14,14,12,0.72)';
+        nav.style.backdropFilter = 'saturate(1.4) blur(20px)';
+        nav.style.webkitBackdropFilter = 'saturate(1.4) blur(20px)';
+        nav.style.borderBottomColor = 'rgba(239,237,230,0.12)';
+      } else {
+        nav.style.background = 'transparent';
+        nav.style.backdropFilter = 'none';
+        nav.style.borderBottomColor = 'transparent';
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    this._onScroll = onScroll;
+
+    const items = Array.from(document.querySelectorAll('[data-reveal]'));
+    items.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(22px)';
+      el.style.transition = 'opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1)';
+    });
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.style.opacity = '1';
+            e.target.style.transform = 'none';
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+      items.forEach(el => io.observe(el));
+      this._io = io;
+    } else {
+      items.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+    }
+
+    const cur = document.getElementById('wlCursor');
+    const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    if (cur && !isTouch) {
+      document.body.appendChild(cur);
+      const move = (ev) => { cur.style.translate = ev.clientX + 'px ' + ev.clientY + 'px'; };
+      window.addEventListener('mousemove', move, { passive: true });
+      this._move = move;
+      const hot = 'a, button, [style*="cursor: pointer"]';
+      const over = (ev) => { if (ev.target.closest(hot)) cur.classList.add('hot'); };
+      const out = (ev) => { if (ev.target.closest(hot)) cur.classList.remove('hot'); };
+      document.addEventListener('mouseover', over);
+      document.addEventListener('mouseout', out);
+      this._over = over; this._out = out;
+    }
+  }
+
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    if (this._io) this._io.disconnect();
+    if (this._move) window.removeEventListener('mousemove', this._move);
+    if (this._over) document.removeEventListener('mouseover', this._over);
+    if (this._out) document.removeEventListener('mouseout', this._out);
+  }
+
+  renderVals() {
+    return {
+      menuOpen: this.state.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

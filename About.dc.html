@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #0E0E0C; color: #EFEDE6; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden; font-feature-settings: "ss01","cv11"; }
+  ::selection { background: #EFEDE6; color: #0E0E0C; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #FFFFFF; }
+  @keyframes wlGreen { 0% { background:#5cbf8f; } 25% { background:#49b483; } 50% { background:#6fd0a0; } 75% { background:#3fa877; } 100% { background:#5cbf8f; } }
+  @keyframes wlGreenBorder { 0% { border-color:#5cbf8f; } 25% { border-color:#49b483; } 50% { border-color:#6fd0a0; } 75% { border-color:#3fa877; } 100% { border-color:#5cbf8f; } }
+  .wl-cursor { position: fixed; top: 0; left: 0; width: 13px; height: 13px; margin-left: -6.5px; margin-top: -6.5px; background: #5cbf8f; pointer-events: none; z-index: 9999; translate: -200px -200px; transition: width .5s cubic-bezier(.2,.7,.2,1), height .5s cubic-bezier(.2,.7,.2,1), rotate .5s cubic-bezier(.2,.7,.2,1), border-radius .5s cubic-bezier(.2,.7,.2,1); animation: wlGreen 5s linear infinite; }
+  .wl-cursor.hot { width: 34px; height: 34px; margin-left: -17px; margin-top: -17px; background: transparent !important; border: 1.5px solid #5cbf8f; border-radius: 50%; animation: wlGreenBorder 5s linear infinite; }
+  @keyframes wlMenuDrop { from { opacity: 0; transform: translateY(-10px) scaleY(0.97); } to { opacity: 1; transform: none; } }
+  @keyframes wlMenuItem { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+  .wl-menu { animation: wlMenuDrop .4s cubic-bezier(.2,.75,.25,1) both; transform-origin: top center; }
+  .wl-menu > a { animation: wlMenuItem .45s cubic-bezier(.2,.75,.25,1) both; }
+  .wl-menu > a:nth-child(1) { animation-delay: .05s; }
+  .wl-menu > a:nth-child(2) { animation-delay: .11s; }
+  .wl-menu > a:nth-child(3) { animation-delay: .17s; }
+  .wl-menu > a:nth-child(4) { animation-delay: .23s; }
+  .wl-menu > a:nth-child(5) { animation-delay: .29s; }
+  .wl-burger svg line { transition: transform .38s cubic-bezier(.2,.75,.25,1), opacity .25s ease; transform-origin: center; }
+  .wl-burger[data-open="true"] .wl-l1 { transform: translateY(5px) rotate(45deg); }
+  .wl-burger[data-open="true"] .wl-l2 { opacity: 0; transform: scaleX(0.3); }
+  .wl-burger[data-open="true"] .wl-l3 { transform: translateY(-5px) rotate(-45deg); }
+  .wl-burger { transition: border-color .3s ease, background .3s ease; }
+  .wl-burger[data-open="true"] { border-color: #EFEDE6; }
+  @media (hover: none), (pointer: coarse) { .wl-cursor { display: none !important; } }
+  @media (min-width: 1500px) { .wl-root { zoom: 1.25; } }
+  @media (max-width: 980px) {
+    .wl-navlinks { display: none !important; }
+    .wl-burger { display: inline-flex !important; }
+    .wl-abhero { grid-template-columns: 1fr !important; gap: 40px !important; }
+    .wl-abhero-portrait { max-width: 360px !important; margin-top: 0 !important; }
+    .wl-bio { grid-template-columns: 1fr !important; gap: 40px !important; }
+    .wl-bio-aside { position: static !important; }
+    .wl-tl { grid-template-columns: 1fr !important; }
+    .wl-tl-row { grid-template-columns: 1fr !important; gap: 6px !important; padding: 24px 0 !important; }
+    .wl-creds { grid-template-columns: 1fr !important; }
+    .wl-sechdr { grid-template-columns: 1fr !important; gap: 18px !important; }
+    .wl-ctarow { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .wl-footrow { grid-template-columns: 1fr !important; gap: 18px !important; }
+    .wl-footrow > div { justify-content: flex-start !important; }
+  }
+  @media (max-width: 600px) { .wl-creds { grid-template-columns: 1fr !important; } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</helmet>
+<div class="wl-root" style="position: relative; background: #0E0E0C; color: #EFEDE6; overflow: hidden;">
+
+  <!-- NAV -->
+  <div id="wlNav" style="position: fixed; top: 0; left: 0; right: 0; z-index: 60; padding: 14px clamp(20px,4vw,40px); border-bottom: 1px solid transparent; transition: background .5s cubic-bezier(.2,.7,.2,1), backdrop-filter .5s ease, border-color .5s ease;">
+    <nav style="max-width: 1320px; margin: 0 auto; display: flex; align-items: center; gap: 18px; height: 44px;">
+      <a href="Hero.dc.html" style="display: inline-flex; align-items: center; gap: 13px; color: #EFEDE6;">
+        <span style="display: flex; flex-direction: column; gap: 3px;">
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #EFEDE6; font-weight: 500; line-height: 1;">wendi <span style="color: #5cbf8f;">/</span> lev</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: #918F88; line-height: 1;">Clinical Therapist</span>
+        </span>
+      </a>
+      <div class="wl-navlinks" style="display: flex; gap: 0; margin-left: 22px;">
+        <a href="Services.dc.html" style="padding: 8px 14px; color: #D2CFC6; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; transition: color .25s ease;" style-hover="color: #EFEDE6;">Services</a>
+        <a href="About.dc.html" style="padding: 8px 14px; color: #EFEDE6; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase;">About</a>
+        <a href="Hero.dc.html#approach" style="padding: 8px 14px; color: #D2CFC6; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; transition: color .25s ease;" style-hover="color: #EFEDE6;">Approach</a>
+        <a href="Hero.dc.html#faq" style="padding: 8px 14px; color: #D2CFC6; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; transition: color .25s ease;" style-hover="color: #EFEDE6;">FAQ</a>
+      </div>
+      <div style="flex: 1;"></div>
+      <a href="https://www.zocdoc.com/practice/wendi-lev-lcsw-acsw-acsw-lev-counseling-34364?lock=true&amp;isNewPatient=false&amp;referrerType=widget" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 10px; height: 38px; padding: 0 18px; background: #EFEDE6; color: #0E0E0C; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; border: 1.25px solid transparent; transition: background .35s ease, transform .35s ease;" style-hover="background: #d8d6cd; transform: translateY(-1px);">BOOK ONLINE →</a>
+      <button class="wl-burger" data-open="{{ menuOpen }}" onClick="{{ toggleMenu }}" aria-label="Menu" style="display: none; align-items: center; justify-content: center; width: 40px; height: 40px; background: transparent; border: 1.25px solid #5D5C56; color: #EFEDE6; cursor: pointer; padding: 0;">
+        <svg width="18" height="16" viewBox="0 0 18 16" fill="none" stroke="#EFEDE6" stroke-width="1.3" stroke-linecap="round"><line class="wl-l1" x1="0" y1="3" x2="18" y2="3" /><line class="wl-l2" x1="0" y1="8" x2="18" y2="8" /><line class="wl-l3" x1="0" y1="13" x2="18" y2="13" /></svg>
+      </button>
+    </nav>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <nav class="wl-menu" style="max-width: 1320px; margin: 8px auto 0; display: flex; flex-direction: column; border-top: 1px solid rgba(239,237,230,0.12); padding-top: 8px;">
+        <a href="Services.dc.html" onClick="{{ closeMenu }}" style="padding: 13px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; border-bottom: 1px solid rgba(239,237,230,0.08);">Services</a>
+        <a href="About.dc.html" onClick="{{ closeMenu }}" style="padding: 13px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #EFEDE6; border-bottom: 1px solid rgba(239,237,230,0.08);">About</a>
+        <a href="Hero.dc.html#approach" onClick="{{ closeMenu }}" style="padding: 13px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; border-bottom: 1px solid rgba(239,237,230,0.08);">Approach</a>
+        <a href="Hero.dc.html#faq" onClick="{{ closeMenu }}" style="padding: 13px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6;">FAQ</a>
+      </nav>
+    </sc-if>
+  </div>
+
+  <main style="padding-top: 72px;">
+
+    <!-- ABOUT HERO -->
+    <section style="padding: 80px 0 90px;">
+      <div style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px);">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-bottom: 56px; flex-wrap: wrap;">
+          <a href="Hero.dc.html" data-reveal style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; display: inline-flex; align-items: center; gap: 10px; transition: gap .3s ease;" style-hover="gap: 14px;"><span>←</span> back home</a>
+          <span data-reveal style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #5cbf8f;">/ about</span>
+        </div>
+        <div class="wl-abhero" style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 72px; align-items: start;">
+          <div>
+            <div data-reveal style="display: flex; align-items: center; gap: 12px; margin-bottom: 30px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6;"><span style="width: 4px; height: 4px; background: #5cbf8f; display: inline-block;"></span> Wendi Lev, LCSW · ACSW · CADC</div>
+            <h1 data-reveal style="font-size: clamp(42px,6.4vw,104px); line-height: 0.96; letter-spacing: -0.045em; font-weight: 300; margin: 0; color: #EFEDE6; text-transform: lowercase; text-wrap: balance;">a strategic <span style="color: #5cbf8f; font-weight: 300;">/</span> partner <b style="font-weight: 500;">in your progress.</b></h1>
+            <p data-reveal style="margin: 32px 0 0; max-width: 48ch; font-size: 18px; line-height: 1.55; color: #D2CFC6;">Thirty years of clinical experience, a direct and engaged style, and a simple belief: therapy should relieve what hurts now <em style="font-style: normal; color: #EFEDE6; font-weight: 500;">and</em> build something that lasts.</p>
+            <div data-reveal style="margin-top: 36px; display: flex; flex-wrap: wrap; gap: 10px 28px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #918F88;">
+              <span><b style="color: #EFEDE6; font-weight: 500;">30 yrs</b> · in practice</span>
+              <span><b style="color: #EFEDE6; font-weight: 500;">IL &amp; FL</b> · licensed</span>
+              <span><b style="color: #EFEDE6; font-weight: 500;">Loyola</b> · msw 1996</span>
+            </div>
+          </div>
+          <div data-reveal class="wl-abhero-portrait" style="position: relative; width: 100%; max-width: 420px; aspect-ratio: 3/4; overflow: hidden; border: 1px solid rgba(239,237,230,0.24); justify-self: end; margin-top: 8px;">
+            <img src="assets/wendi-portrait.jpg" alt="Wendi Lev, LCSW — portrait" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; filter: grayscale(1) contrast(1.06) brightness(1.02); z-index: 1;">
+            <span style="position: absolute; left: 13px; top: 12px; z-index: 2; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: rgba(255,255,255,0.85); letter-spacing: 0.22em; text-transform: uppercase;">fig. 01</span>
+            <span style="position: absolute; right: 13px; bottom: 11px; z-index: 2; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: rgba(255,255,255,0.7); letter-spacing: 0.22em; text-transform: uppercase;">— · — —</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIO -->
+    <section style="padding: 90px 0; background: #161613; border-top: 1px solid rgba(239,237,230,0.12); border-bottom: 1px solid rgba(239,237,230,0.12);">
+      <div class="wl-bio" style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px); display: grid; grid-template-columns: 4fr 8fr; gap: 80px; align-items: start;">
+        <div class="wl-bio-aside" data-reveal style="position: sticky; top: 100px; display: flex; flex-direction: column; gap: 18px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D2CFC6; letter-spacing: 0.2em; text-transform: uppercase; display: flex; align-items: center; gap: 14px;"><span style="width: 4px; height: 4px; background: #5cbf8f; display: inline-block;"></span> 01 <span style="width: 14px; height: 1.25px; background: #5cbf8f; display: inline-block;"></span> the short version</div>
+          <p style="margin: 0; font-family: 'Inter Tight'; font-weight: 300; font-size: clamp(24px,2.4vw,32px); line-height: 1.12; letter-spacing: -0.03em; color: #EFEDE6; text-transform: lowercase;">not the kind who just <span style="color: #5cbf8f;">/</span> <b style="font-weight: 500;">sits and nods.</b></p>
+        </div>
+        <div data-reveal style="display: flex; flex-direction: column; gap: 22px;">
+          <p style="margin: 0; font-size: 21px; line-height: 1.45; color: #EFEDE6; letter-spacing: -0.01em; max-width: 60ch; font-weight: 400;">I provide integrative, relationship-based psychotherapy for individuals and couples navigating the unique pressures of high-stakes environments — work grounded in clarity, discretion, and results, not rigid protocols.</p>
+          <p style="margin: 0; font-size: 16.5px; line-height: 1.65; color: #D2CFC6; max-width: 62ch;">Rather than relying on manuals, I focus on identifying the patterns in thinking, emotion, behavior, and relationships that keep people stuck. Once those patterns are clear, we work directly to change how they function in real time — with an emphasis on precision, relational intelligence, and long-term resilience.</p>
+          <p style="margin: 0; font-size: 16.5px; line-height: 1.65; color: #D2CFC6; max-width: 62ch;">My style is direct, engaged, and active. I'm a strategic partner in your progress, offering an honest perspective and real tools for change — while creating a nonjudgmental space where meaningful exploration can actually happen. Having worked with thousands of clients from diverse backgrounds, I take cultural context seriously, and I build every treatment plan around exactly what's right for you.</p>
+          <div style="margin-top: 12px; display: flex; align-items: center; gap: 16px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #918F88; letter-spacing: 0.2em; text-transform: uppercase; flex-wrap: wrap;">
+            <span style="color: #EFEDE6;">2021 Patient Preferred Psychotherapist</span>
+            <span style="width: 20px; height: 1px; background: #5D5C56;"></span>
+            <span>4.4★ · 600+ reviews</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section style="padding: 90px 0 60px;">
+      <div style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px);">
+        <div class="wl-sechdr" style="display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: baseline; padding: 40px 0 56px;">
+          <div data-reveal style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D2CFC6; letter-spacing: 0.2em; text-transform: uppercase; display: flex; align-items: center; gap: 14px;"><span style="width: 4px; height: 4px; background: #5cbf8f; display: inline-block;"></span> 02 <span style="width: 14px; height: 1.25px; background: #5cbf8f; display: inline-block;"></span> background</div>
+          <h2 data-reveal style="font-size: clamp(30px,3.8vw,52px); font-weight: 300; letter-spacing: -0.035em; line-height: 1.0; margin: 0; text-transform: lowercase;">three decades <span style="color: #5cbf8f;">/</span> of <b style="font-weight: 500;">clinical work.</b></h2>
+        </div>
+        <div style="border-top: 1px solid rgba(239,237,230,0.24);">
+          <div class="wl-tl-row" data-reveal style="display: grid; grid-template-columns: 160px 1fr 1fr; gap: 40px; padding: 34px 0; border-bottom: 1px solid rgba(239,237,230,0.12); align-items: baseline;">
+            <span style="font-family: 'Inter Tight'; font-weight: 300; font-size: 28px; letter-spacing: -0.03em; color: #5cbf8f;">1996</span>
+            <h3 style="margin: 0; font-size: 22px; font-weight: 500; letter-spacing: -0.02em; text-transform: lowercase; color: #EFEDE6;">MSW, Loyola University Chicago</h3>
+            <p style="margin: 0; color: #918F88; font-size: 14.5px; line-height: 1.55;">Master's in Clinical Social Work — the foundation for a career built on evidence and relationship.</p>
+          </div>
+          <div class="wl-tl-row" data-reveal style="display: grid; grid-template-columns: 160px 1fr 1fr; gap: 40px; padding: 34px 0; border-bottom: 1px solid rgba(239,237,230,0.12); align-items: baseline;">
+            <span style="font-family: 'Inter Tight'; font-weight: 300; font-size: 28px; letter-spacing: -0.03em; color: #5cbf8f;">Hospital</span>
+            <h3 style="margin: 0; font-size: 22px; font-weight: 500; letter-spacing: -0.02em; text-transform: lowercase; color: #EFEDE6;">Stone Institute of Psychiatry, Northwestern</h3>
+            <p style="margin: 0; color: #918F88; font-size: 14.5px; line-height: 1.55;">Eight years with complex cases, including the Dual Diagnosis Program for Adolescents &amp; Families.</p>
+          </div>
+          <div class="wl-tl-row" data-reveal style="display: grid; grid-template-columns: 160px 1fr 1fr; gap: 40px; padding: 34px 0; border-bottom: 1px solid rgba(239,237,230,0.12); align-items: baseline;">
+            <span style="font-family: 'Inter Tight'; font-weight: 300; font-size: 28px; letter-spacing: -0.03em; color: #5cbf8f;">Inpatient</span>
+            <h3 style="margin: 0; font-size: 22px; font-weight: 500; letter-spacing: -0.02em; text-transform: lowercase; color: #EFEDE6;">Michael Reese Hospital &amp; Medical Center</h3>
+            <p style="margin: 0; color: #918F88; font-size: 14.5px; line-height: 1.55;">Clinical Psychotherapist in the inpatient adolescent psychiatric unit.</p>
+          </div>
+          <div class="wl-tl-row" data-reveal style="display: grid; grid-template-columns: 160px 1fr 1fr; gap: 40px; padding: 34px 0; border-bottom: 1px solid rgba(239,237,230,0.12); align-items: baseline;">
+            <span style="font-family: 'Inter Tight'; font-weight: 300; font-size: 28px; letter-spacing: -0.03em; color: #5cbf8f;">2017–21</span>
+            <h3 style="margin: 0; font-size: 22px; font-weight: 500; letter-spacing: -0.02em; text-transform: lowercase; color: #EFEDE6;">Advanced training with Esther Perel</h3>
+            <p style="margin: 0; color: #918F88; font-size: 14.5px; line-height: 1.55;">Deepening the couples and relational work at the heart of the practice today.</p>
+          </div>
+          <div class="wl-tl-row" data-reveal style="display: grid; grid-template-columns: 160px 1fr 1fr; gap: 40px; padding: 34px 0; align-items: baseline;">
+            <span style="font-family: 'Inter Tight'; font-weight: 300; font-size: 28px; letter-spacing: -0.03em; color: #5cbf8f;">Today</span>
+            <h3 style="margin: 0; font-size: 22px; font-weight: 500; letter-spacing: -0.02em; text-transform: lowercase; color: #EFEDE6;">Lev Counseling — Downtown Chicago</h3>
+            <p style="margin: 0; color: #918F88; font-size: 14.5px; line-height: 1.55;">Private practice at 30 N. Michigan Ave, in-person and virtual across Illinois &amp; Florida.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CREDENTIALS -->
+    <section style="padding: 60px 0 90px;">
+      <div style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px);">
+        <div class="wl-sechdr" style="display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: baseline; padding: 40px 0 48px;">
+          <div data-reveal style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D2CFC6; letter-spacing: 0.2em; text-transform: uppercase; display: flex; align-items: center; gap: 14px;"><span style="width: 4px; height: 4px; background: #5cbf8f; display: inline-block;"></span> 03 <span style="width: 14px; height: 1.25px; background: #5cbf8f; display: inline-block;"></span> training &amp; certifications</div>
+          <h2 data-reveal style="font-size: clamp(30px,3.8vw,52px); font-weight: 300; letter-spacing: -0.035em; line-height: 1.0; margin: 0; text-transform: lowercase;">the tools <span style="color: #5cbf8f;">/</span> behind the <b style="font-weight: 500;">work.</b></h2>
+        </div>
+        <div class="wl-creds" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(239,237,230,0.12); border: 1px solid rgba(239,237,230,0.12);">
+          <div data-reveal style="background: #0E0E0C; padding: 34px 28px; display: flex; flex-direction: column; gap: 14px; min-height: 200px; transition: background .4s ease;" style-hover="background: #161613;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #5cbf8f; letter-spacing: 0.22em; text-transform: uppercase;">couples</span>
+            <h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.02em; text-transform: lowercase; color: #EFEDE6;">Gottman Method · Levels 1–3</h3>
+            <p style="margin: 0; color: #918F88; font-size: 13.5px; line-height: 1.55;">Including Affairs &amp; Trauma and Couples Addiction &amp; Recovery.</p>
+          </div>
+          <div data-reveal style="background: #0E0E0C; padding: 34px 28px; display: flex; flex-direction: column; gap: 14px; min-height: 200px; transition: background .4s ease;" style-hover="background: #161613;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #5cbf8f; letter-spacing: 0.22em; text-transform: uppercase;">relational</span>
+            <h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.02em; text-transform: lowercase; color: #EFEDE6;">Emotionally Focused Therapy</h3>
+            <p style="margin: 0; color: #918F88; font-size: 13.5px; line-height: 1.55;">Plus training with Esther Perel, 2017–2021.</p>
+          </div>
+          <div data-reveal style="background: #0E0E0C; padding: 34px 28px; display: flex; flex-direction: column; gap: 14px; min-height: 200px; transition: background .4s ease;" style-hover="background: #161613;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #5cbf8f; letter-spacing: 0.22em; text-transform: uppercase;">individual</span>
+            <h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.02em; text-transform: lowercase; color: #EFEDE6;">Certified CBT Therapist</h3>
+            <p style="margin: 0; color: #918F88; font-size: 13.5px; line-height: 1.55;">Integrating ACT, DBT, Schema, and psychodynamic work.</p>
+          </div>
+          <div data-reveal style="background: #0E0E0C; padding: 34px 28px; display: flex; flex-direction: column; gap: 14px; min-height: 200px; transition: background .4s ease;" style-hover="background: #161613;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #5cbf8f; letter-spacing: 0.22em; text-transform: uppercase;">addiction</span>
+            <h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.02em; text-transform: lowercase; color: #EFEDE6;">CADC · Substance Use</h3>
+            <p style="margin: 0; color: #918F88; font-size: 13.5px; line-height: 1.55;">Certified AODA Counselor; advanced training via Yale School of Medicine.</p>
+          </div>
+          <div data-reveal style="background: #0E0E0C; padding: 34px 28px; display: flex; flex-direction: column; gap: 14px; min-height: 200px; transition: background .4s ease;" style-hover="background: #161613;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #5cbf8f; letter-spacing: 0.22em; text-transform: uppercase;">premarital</span>
+            <h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.02em; text-transform: lowercase; color: #EFEDE6;">Prepare/Enrich Facilitator</h3>
+            <p style="margin: 0; color: #918F88; font-size: 13.5px; line-height: 1.55;">Certified Prep Couples Counseling facilitator; divorce mediation.</p>
+          </div>
+          <div data-reveal style="background: #0E0E0C; padding: 34px 28px; display: flex; flex-direction: column; gap: 14px; min-height: 200px; transition: background .4s ease;" style-hover="background: #161613;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #5cbf8f; letter-spacing: 0.22em; text-transform: uppercase;">memberships</span>
+            <h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.02em; text-transform: lowercase; color: #EFEDE6;">NASW · ICA · ABCT · NAATP</h3>
+            <p style="margin: 0; color: #918F88; font-size: 13.5px; line-height: 1.55;">Active memberships keeping the practice current and research-based.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="padding: 130px 0; background: #0E0E0C; border-top: 1px solid rgba(239,237,230,0.12);">
+      <div class="wl-ctarow" style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px); display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center;">
+        <h2 data-reveal style="font-family: 'Inter Tight'; font-weight: 300; font-size: clamp(40px,6vw,92px); line-height: 0.98; letter-spacing: -0.045em; margin: 0; text-transform: lowercase; color: #EFEDE6; text-wrap: balance;">let's find <span style="color: #5cbf8f;">/</span> <b style="font-weight: 500;">the right fit.</b></h2>
+        <div data-reveal style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start;">
+          <a href="https://www.zocdoc.com/practice/wendi-lev-lcsw-acsw-acsw-lev-counseling-34364?lock=true&amp;isNewPatient=false&amp;referrerType=widget" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 24px; background: #EFEDE6; color: #0E0E0C; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; transition: background .35s ease, transform .35s ease;" style-hover="background: #d8d6cd; transform: translateY(-1px);">Book a free consult →</a>
+          <a href="tel:3128991120" style="display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 24px; border: 1.25px solid #EFEDE6; color: #EFEDE6; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; transition: background .35s ease, color .35s ease, transform .35s ease;" style-hover="background: #EFEDE6; color: #0E0E0C; transform: translateY(-1px);">(312) 899-1120</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="background: #0E0E0C; color: #918F88; padding: 52px 0; border-top: 1px solid rgba(239,237,230,0.12);">
+      <div class="wl-footrow" style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px); display: grid; grid-template-columns: auto auto auto; justify-content: space-between; gap: 32px; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;">
+        <div style="display: flex; align-items: center; gap: 16px;">Wendi Lev, LCSW · ACSW · CADC</div>
+        <div style="display: flex; justify-content: center; gap: 28px;"><a href="Services.dc.html" style="transition: color .3s ease;" style-hover="color: #EFEDE6;">Services</a><a href="About.dc.html" style="transition: color .3s ease; color: #EFEDE6;">About</a><a href="Hero.dc.html#contact" style="transition: color .3s ease;" style-hover="color: #EFEDE6;">Contact</a></div>
+        <div style="display: flex; align-items: center; gap: 14px; justify-content: flex-end;">© 2026 <span style="color: #5cbf8f;">— · — —</span></div>
+      </div>
+    </footer>
+
+  </main>
+
+  <div class="wl-cursor" id="wlCursor"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { menuOpen: false };
+
+  componentDidMount() {
+    const nav = document.getElementById('wlNav');
+    const onScroll = () => {
+      if (!nav) return;
+      if (window.scrollY > 20) {
+        nav.style.background = 'rgba(14,14,12,0.72)';
+        nav.style.backdropFilter = 'saturate(1.4) blur(20px)';
+        nav.style.webkitBackdropFilter = 'saturate(1.4) blur(20px)';
+        nav.style.borderBottomColor = 'rgba(239,237,230,0.12)';
+      } else {
+        nav.style.background = 'transparent';
+        nav.style.backdropFilter = 'none';
+        nav.style.borderBottomColor = 'transparent';
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    this._onScroll = onScroll;
+
+    const items = Array.from(document.querySelectorAll('[data-reveal]'));
+    items.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(22px)';
+      el.style.transition = 'opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1)';
+    });
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.style.opacity = '1';
+            e.target.style.transform = 'none';
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+      items.forEach(el => io.observe(el));
+      this._io = io;
+    } else {
+      items.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+    }
+
+    const cur = document.getElementById('wlCursor');
+    const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    if (cur && !isTouch) {
+      document.body.appendChild(cur);
+      const move = (ev) => { cur.style.translate = ev.clientX + 'px ' + ev.clientY + 'px'; };
+      window.addEventListener('mousemove', move, { passive: true });
+      this._move = move;
+      const hot = 'a, button, [style*="cursor: pointer"]';
+      const over = (ev) => { if (ev.target.closest(hot)) cur.classList.add('hot'); };
+      const out = (ev) => { if (ev.target.closest(hot)) cur.classList.remove('hot'); };
+      document.addEventListener('mouseover', over);
+      document.addEventListener('mouseout', out);
+      this._over = over; this._out = out;
+    }
+  }
+
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    if (this._io) this._io.disconnect();
+    if (this._move) window.removeEventListener('mousemove', this._move);
+    if (this._over) document.removeEventListener('mouseover', this._over);
+    if (this._out) document.removeEventListener('mouseout', this._out);
+  }
+
+  renderVals() {
+    return {
+      menuOpen: this.state.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>
