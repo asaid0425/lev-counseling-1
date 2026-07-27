@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="blog-posts.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #0E0E0C; color: #EFEDE6; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden; font-feature-settings: "ss01","cv11"; }
+  ::selection { background: #EFEDE6; color: #0E0E0C; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #FFFFFF; }
+  @keyframes wlGreen { 0% { background:#5cbf8f; } 25% { background:#49b483; } 50% { background:#6fd0a0; } 75% { background:#3fa877; } 100% { background:#5cbf8f; } }
+  @keyframes wlGreenBorder { 0% { border-color:#5cbf8f; } 25% { border-color:#49b483; } 50% { border-color:#6fd0a0; } 75% { border-color:#3fa877; } 100% { border-color:#5cbf8f; } }
+  @keyframes wlMenuDrop { from { opacity: 0; transform: translateY(-10px) scaleY(0.97); } to { opacity: 1; transform: none; } }
+  @keyframes wlMenuItem { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+  @keyframes wlFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes wlModalIn { from { opacity: 0; transform: translateY(28px) scale(0.985); } to { opacity: 1; transform: none; } }
+  .wl-menu { animation: wlMenuDrop .4s cubic-bezier(.2,.75,.25,1) both; transform-origin: top center; }
+  .wl-menu > a { animation: wlMenuItem .45s cubic-bezier(.2,.75,.25,1) both; }
+  .wl-menu > a:nth-child(1) { animation-delay: .05s; }
+  .wl-menu > a:nth-child(2) { animation-delay: .11s; }
+  .wl-menu > a:nth-child(3) { animation-delay: .17s; }
+  .wl-menu > a:nth-child(4) { animation-delay: .23s; }
+  .wl-menu > a:nth-child(5) { animation-delay: .29s; }
+  .wl-menu > a:nth-child(6) { animation-delay: .35s; }
+  .wl-burger svg line { transition: transform .38s cubic-bezier(.2,.75,.25,1), opacity .25s ease; transform-origin: center; }
+  .wl-burger[data-open="true"] .wl-l1 { transform: translateY(5px) rotate(45deg); }
+  .wl-burger[data-open="true"] .wl-l2 { opacity: 0; transform: scaleX(0.3); }
+  .wl-burger[data-open="true"] .wl-l3 { transform: translateY(-5px) rotate(-45deg); }
+  .wl-burger { transition: border-color .3s ease, background .3s ease; }
+  .wl-burger[data-open="true"] { border-color: #EFEDE6; }
+  .wl-cursor { position: fixed; top: 0; left: 0; width: 13px; height: 13px; margin-left: -6.5px; margin-top: -6.5px; background: #5cbf8f; pointer-events: none; z-index: 9999; translate: -200px -200px; transition: width .5s cubic-bezier(.2,.7,.2,1), height .5s cubic-bezier(.2,.7,.2,1), rotate .5s cubic-bezier(.2,.7,.2,1), border-radius .5s cubic-bezier(.2,.7,.2,1); animation: wlGreen 5s linear infinite; }
+  .wl-cursor.hot { width: 34px; height: 34px; margin-left: -17px; margin-top: -17px; background: transparent !important; border: 1.5px solid #5cbf8f; border-radius: 50%; animation: wlGreenBorder 5s linear infinite; }
+  @media (hover: none), (pointer: coarse) { .wl-cursor { display: none !important; } }
+  .wl-scrim { animation: wlFadeIn .32s ease both; }
+  .wl-modal { animation: wlModalIn .48s cubic-bezier(.16,1,.3,1) both; }
+  .wl-modal-body { overflow-y: auto; scrollbar-width: thin; scrollbar-color: #3a3a35 transparent; }
+  .wl-modal-body::-webkit-scrollbar { width: 9px; }
+  .wl-modal-body::-webkit-scrollbar-thumb { background: #3a3a35; }
+  @media (min-width: 1500px) { .wl-root { zoom: 1.25; } .wl-scrim { zoom: 0.8; } }
+  @media (max-width: 980px) {
+    .wl-navlinks { display: none !important; }
+    .wl-burger { display: inline-flex !important; }
+    .wl-bloghead { grid-template-columns: 1fr !important; gap: 28px !important; }
+    .wl-cards { grid-template-columns: 1fr !important; }
+    .wl-footrow { grid-template-columns: 1fr !important; gap: 18px !important; }
+    .wl-footrow > div { justify-content: flex-start !important; }
+    .wl-modal { width: 100% !important; max-height: 92vh !important; }
+  }
+  @media (max-width: 700px) { .wl-cards { grid-template-columns: 1fr !important; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } html { scroll-behavior: auto; } }
+</style>
+</helmet>
+<div class="wl-root" style="position: relative; background: #0E0E0C; color: #EFEDE6; overflow: hidden; min-height: 100vh;">
+
+  <div id="wlNav" style="position: fixed; top: 0; left: 0; right: 0; z-index: 60; padding: 14px clamp(20px,4vw,40px); border-bottom: 1px solid transparent; transition: background .5s cubic-bezier(.2,.7,.2,1), backdrop-filter .5s ease, border-color .5s ease;">
+    <nav style="max-width: 1320px; margin: 0 auto; display: flex; align-items: center; gap: 18px; height: 44px;">
+      <a href="index.html" style="display: inline-flex; align-items: center; gap: 13px; color: #EFEDE6;">
+        <span style="display: flex; flex-direction: column; gap: 3px;">
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #EFEDE6; font-weight: 500; line-height: 1;">wendi <span style="color: #5cbf8f;">/</span> lev</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: #918F88; line-height: 1;">Clinical Therapist</span>
+        </span>
+      </a>
+      <div style="flex: 1;"></div>
+      <a href="https://www.zocdoc.com/practice/wendi-lev-lcsw-acsw-acsw-lev-counseling-34364?lock=true&amp;isNewPatient=false&amp;referrerType=widget" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 10px; height: 38px; padding: 0 18px; background: #EFEDE6; color: #0E0E0C; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; border: 1.25px solid transparent; transition: background .35s ease, transform .35s ease;" style-hover="background: #d8d6cd; transform: translateY(-1px);">BOOK ONLINE →</a>
+    </nav>
+  </div>
+
+  <main style="padding-top: 72px;">
+
+    <section style="padding: 80px 0 40px;">
+      <div style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px);">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-bottom: 56px; flex-wrap: wrap;">
+          <a href="index.html" style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; display: inline-flex; align-items: center; gap: 10px; transition: gap .3s ease;" style-hover="gap: 14px;"><span>←</span> back home</a>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #5cbf8f;">/ journal</span>
+        </div>
+        <div class="wl-bloghead" style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 72px; align-items: end;">
+          <h1 style="font-size: clamp(44px,7vw,110px); line-height: 0.96; letter-spacing: -0.045em; font-weight: 300; margin: 0; color: #EFEDE6; text-transform: lowercase; text-wrap: balance;">notes <span style="color: #5cbf8f; font-weight: 300;">/</span> on being <b style="font-weight: 500;">human.</b></h1>
+          <p style="margin: 0; font-size: 16.5px; line-height: 1.6; color: #D2CFC6; max-width: 42ch;">Research-backed reading on stress, relationships, presence, and the mind — written to be useful between sessions.</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 40px 0 130px;">
+      <div style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px);">
+        <div class="wl-cards" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(239,237,230,0.12); border: 1px solid rgba(239,237,230,0.12);">
+          <sc-for list="{{ posts }}" as="post" hint-placeholder-count="9">
+            <button onClick="{{ post.open }}" style="text-align: left; background: #0E0E0C; border: 0; cursor: pointer; padding: 0; display: flex; flex-direction: column; min-height: 420px; font-family: inherit; transition: background .4s ease;" style-hover="background: #161613;">
+              <span style="position: relative; display: block; width: 100%; height: 190px; overflow: hidden; background: #14150F; border-bottom: 1px solid rgba(239,237,230,0.12);">
+                <span style="position: absolute; inset: 0; background: {{ post.thumbBg }};"></span>
+                <span style="position: absolute; left: 16px; top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(239,237,230,0.75);">{{ post.cat }}</span>
+                <span style="position: absolute; right: 16px; top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.2em; color: rgba(239,237,230,0.45);">{{ post.num }}</span>
+                <span style="position: absolute; left: 16px; bottom: 14px; font-family: 'Inter Tight'; font-weight: 300; font-size: 62px; line-height: 1; letter-spacing: -0.05em; color: rgba(92,191,143,0.5);">{{ post.glyph }}</span>
+              </span>
+              <span style="display: flex; flex-direction: column; gap: 12px; padding: 26px 26px 0;">
+                <span style="font-family: 'Inter Tight'; font-weight: 400; font-size: 22px; line-height: 1.15; letter-spacing: -0.025em; color: #EFEDE6;">{{ post.title }}</span>
+                <span style="color: #918F88; font-size: 14px; line-height: 1.55;">{{ post.dek }}</span>
+              </span>
+              <span style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding: 24px 26px 26px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #5cbf8f;">Read <span style="color: #918F88;">{{ post.read }}</span></span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <footer style="background: #0E0E0C; color: #918F88; padding: 52px 0; border-top: 1px solid rgba(239,237,230,0.12);">
+      <div class="wl-footrow" style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px); display: grid; grid-template-columns: auto auto auto; justify-content: space-between; gap: 32px; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;">
+        <div style="display: flex; align-items: center; gap: 16px;">Wendi Lev, LCSW · ACSW · CADC</div>
+        <div style="display: flex; justify-content: center; gap: 28px;"><a href="index.html#services" style="transition: color .3s ease;" style-hover="color: #EFEDE6;">Services</a><a href="index.html#about" style="transition: color .3s ease;" style-hover="color: #EFEDE6;">About</a><a href="index.html#contact" style="transition: color .3s ease;" style-hover="color: #EFEDE6;">Contact</a></div>
+        <div style="display: flex; align-items: center; gap: 14px; justify-content: flex-end;">© 2026 <span style="color: #5cbf8f;">— · — —</span></div>
+      </div>
+    </footer>
+  </main>
+
+  <sc-if value="{{ active }}" hint-placeholder-val="{{ false }}">
+    <div class="wl-scrim" onClick="{{ close }}" style="position: fixed; inset: 0; z-index: 200; background: rgba(6,6,5,0.82); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); display: flex; align-items: center; justify-content: center; padding: clamp(12px,4vh,48px) clamp(12px,4vw,40px);">
+      <div class="wl-modal" onClick="{{ stop }}" style="position: relative; width: min(860px, 100%); max-height: 88vh; display: flex; flex-direction: column; background: #0E0E0C; border: 1px solid rgba(239,237,230,0.2);">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 18px; border-bottom: 1px solid rgba(239,237,230,0.12); flex-shrink: 0; min-width: 0;">
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #5cbf8f;">{{ activeCat }} <span style="color: #5D5C56;">·</span> <span style="color: #918F88;">{{ activeRead }}</span></span>
+          <button onClick="{{ close }}" aria-label="Close" style="width: 34px; height: 34px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: 1px solid rgba(239,237,230,0.28); color: #EFEDE6; cursor: pointer; padding: 0; transition: background .3s ease, border-color .3s ease;" style-hover="background: #EFEDE6; border-color: #EFEDE6; color: #0E0E0C;">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M1 1L12 12M12 1L1 12" /></svg>
+          </button>
+        </div>
+        <div class="wl-modal-body" style="padding: clamp(28px,4vw,52px); display: flex; flex-direction: column; gap: 20px;">
+          <h2 style="margin: 0; font-family: 'Inter Tight'; font-weight: 400; font-size: clamp(28px,3.6vw,44px); line-height: 1.06; letter-spacing: -0.035em; color: #EFEDE6; text-wrap: balance;">{{ activeTitle }}</h2>
+          <p style="margin: 0 0 8px; font-size: 18px; line-height: 1.5; color: #D2CFC6; border-bottom: 1px solid rgba(239,237,230,0.12); padding-bottom: 24px;">{{ activeDek }}</p>
+          <sc-for list="{{ activeBlocks }}" as="b" hint-placeholder-count="6">
+            <div>
+              <sc-if value="{{ b.isH2 }}" hint-placeholder-val="{{ false }}">
+                <h3 style="margin: 22px 0 0; font-family: 'Inter Tight'; font-weight: 500; font-size: 27px; line-height: 1.14; letter-spacing: -0.028em; color: #EFEDE6;">{{ b.x }}</h3>
+              </sc-if>
+              <sc-if value="{{ b.isH3 }}" hint-placeholder-val="{{ false }}">
+                <h4 style="margin: 18px 0 0; font-family: 'Inter Tight'; font-weight: 500; font-size: 20px; line-height: 1.2; letter-spacing: -0.02em; color: #EFEDE6;">{{ b.x }}</h4>
+              </sc-if>
+              <sc-if value="{{ b.isLi }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; gap: 14px; padding: 5px 0 5px 4px;"><span style="flex-shrink: 0; width: 6px; height: 1.5px; background: #5cbf8f; margin-top: 13px;"></span><span style="font-size: 16.5px; line-height: 1.62; color: #D2CFC6;">{{ b.x }}</span></div>
+              </sc-if>
+              <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}">
+                <p style="margin: 0; font-size: 16.5px; line-height: 1.68; color: #D2CFC6; text-wrap: pretty;">{{ b.x }}</p>
+              </sc-if>
+            </div>
+          </sc-for>
+          <div style="margin-top: 26px; padding-top: 26px; border-top: 1px solid rgba(239,237,230,0.12); display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #918F88;">Wendi Lev, LCSW <span style="color: #5cbf8f;">— · — —</span></span>
+            <a href="https://www.zocdoc.com/practice/wendi-lev-lcsw-acsw-acsw-lev-counseling-34364?lock=true&amp;isNewPatient=false&amp;referrerType=widget" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 20px; background: #5cbf8f; color: #0B120E; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; transition: background .35s ease, transform .35s ease;" style-hover="background: #6fd0a0; transform: translateY(-1px);">Book a consult →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <div class="wl-cursor" id="wlCursor"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { menuOpen: false, active: null };
+
+  componentDidMount() {
+    const nav = document.getElementById('wlNav');
+    const onScroll = () => {
+      if (!nav) return;
+      if (window.scrollY > 20) {
+        nav.style.background = 'rgba(14,14,12,0.72)';
+        nav.style.backdropFilter = 'saturate(1.4) blur(20px)';
+        nav.style.webkitBackdropFilter = 'saturate(1.4) blur(20px)';
+        nav.style.borderBottomColor = 'rgba(239,237,230,0.12)';
+      } else {
+        nav.style.background = 'transparent';
+        nav.style.backdropFilter = 'none';
+        nav.style.borderBottomColor = 'transparent';
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    this._onScroll = onScroll;
+
+    const onKey = (e) => { if (e.key === 'Escape') this.setState({ active: null }); };
+    document.addEventListener('keydown', onKey);
+    this._onKey = onKey;
+
+    const cur = document.getElementById('wlCursor');
+    const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    if (cur && !isTouch) {
+      document.body.appendChild(cur);
+      const move = (ev) => { cur.style.translate = ev.clientX + 'px ' + ev.clientY + 'px'; };
+      window.addEventListener('mousemove', move, { passive: true });
+      this._move = move;
+      const hot = 'a, button, [style*="cursor: pointer"]';
+      const over = (ev) => { if (ev.target.closest(hot)) cur.classList.add('hot'); };
+      const out = (ev) => { if (ev.target.closest(hot)) cur.classList.remove('hot'); };
+      document.addEventListener('mouseover', over);
+      document.addEventListener('mouseout', out);
+      this._over = over; this._out = out;
+    }
+    if (!window.WL_POSTS) {
+      const t = setInterval(() => { if (window.WL_POSTS) { clearInterval(t); this.forceUpdate(); } }, 60);
+      this._poll = t;
+    }
+  }
+
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    if (this._onKey) document.removeEventListener('keydown', this._onKey);
+    if (this._move) window.removeEventListener('mousemove', this._move);
+    if (this._over) document.removeEventListener('mouseover', this._over);
+    if (this._out) document.removeEventListener('mouseout', this._out);
+    if (this._poll) clearInterval(this._poll);
+    document.body.style.overflow = '';
+  }
+
+  componentDidUpdate(_p, prev) {
+    if (prev.active !== this.state.active) {
+      document.body.style.overflow = this.state.active ? 'hidden' : '';
+    }
+  }
+
+  glyphFor(cat) {
+    const m = { stress: '~', mindfulness: '◦', relationships: '×', purpose: '?', brain: '∞', gratitude: '+', kindness: '♦', social: '=', development: '△', self: '◎', emotions: '≈', communication: '¶', wellbeing: '❖', culture: '§' };
+    return m[cat] || '/';
+  }
+
+  bgFor(i) {
+    const a = [
+      'linear-gradient(140deg,#14170F 0%,#0E0E0C 78%)',
+      'linear-gradient(140deg,#101512 0%,#0E0E0C 78%)',
+      'linear-gradient(140deg,#16130F 0%,#0E0E0C 78%)',
+      'linear-gradient(140deg,#0F1416 0%,#0E0E0C 78%)',
+    ];
+    return a[i % a.length];
+  }
+
+  renderVals() {
+    const raw = (typeof window !== 'undefined' && window.WL_POSTS) || [];
+    const posts = raw.map((p, i) => ({
+      title: p.title,
+      dek: p.dek,
+      cat: p.cat,
+      num: p.num,
+      read: p.read,
+      glyph: this.glyphFor(p.cat),
+      thumbBg: this.bgFor(i),
+      open: () => this.setState({ active: i }),
+    }));
+    const act = this.state.active === null ? null : raw[this.state.active];
+    return {
+      posts,
+      menuOpen: this.state.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      active: !!act,
+      activeTitle: act ? act.title : '',
+      activeDek: act ? act.dek : '',
+      activeCat: act ? act.cat : '',
+      activeRead: act ? act.read : '',
+      activeBlocks: act ? act.blocks : [],
+      close: () => this.setState({ active: null }),
+      stop: (e) => e.stopPropagation(),
+    };
+  }
+}
+</script>
+</body>
+</html>
