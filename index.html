@@ -29,6 +29,9 @@
   @keyframes wlMenuDrop { from { opacity: 0; transform: translateY(-10px) scaleY(0.97); } to { opacity: 1; transform: none; } }
   @keyframes wlMenuItem { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
   .wl-menu { animation: wlMenuDrop .4s cubic-bezier(.2,.75,.25,1) both; transform-origin: top center; }
+  #wlNav:has(.wl-menu) { background: #0E0E0C !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-bottom-color: rgba(239,237,230,0.14) !important; }
+  .wl-menu > a { transition: color .25s ease, padding-left .25s ease; }
+  .wl-menu > a:active { color: #EFEDE6; padding-left: 8px; }
   .wl-menu > a { animation: wlMenuItem .45s cubic-bezier(.2,.75,.25,1) both; }
   .wl-menu > a:nth-child(1) { animation-delay: .05s; }
   .wl-menu > a:nth-child(2) { animation-delay: .11s; }
@@ -60,6 +63,7 @@
     .wl-about { grid-template-columns: 1fr !important; gap: 44px !important; }
     .wl-bento { grid-template-columns: 1fr 1fr !important; grid-template-areas: "office office" "decor hands" "building skyline" !important; grid-auto-rows: clamp(150px,42vw,230px) !important; }
     .wl-calm { grid-template-columns: 1fr !important; grid-auto-rows: clamp(220px,60vw,300px) !important; }
+    .wl-horizon { grid-template-columns: 1fr !important; }
     .wl-sechdr { grid-template-columns: 1fr !important; gap: 18px !important; }
     .wl-grid3 { grid-template-columns: 1fr !important; }
     .wl-grid2 { grid-template-columns: 1fr !important; }
@@ -109,7 +113,7 @@
         <a href="#approach" style="padding: 8px 14px; color: #D2CFC6; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; transition: color .25s ease;" style-hover="color: #EFEDE6;">Approach</a>
         <a href="#faq" style="padding: 8px 14px; color: #D2CFC6; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; transition: color .25s ease;" style-hover="color: #EFEDE6;">FAQ</a>
         <a href="#contact" style="padding: 8px 14px; color: #D2CFC6; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; transition: color .25s ease;" style-hover="color: #EFEDE6;">Contact</a>
-        <a href="blog.html" style="padding: 8px 14px; color: #D2CFC6; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; transition: color .25s ease;" style-hover="color: #EFEDE6;">Blog</a>
+        <a href="Blog.dc.html" style="padding: 8px 14px; color: #D2CFC6; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; transition: color .25s ease;" style-hover="color: #EFEDE6;">Blog</a>
       </div>
       <div style="flex: 1;"></div>
       <a href="https://www.zocdoc.com/practice/wendi-lev-lcsw-acsw-acsw-lev-counseling-34364?lock=true&isNewPatient=false&referrerType=widget" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 10px; height: 38px; padding: 0 18px; background: #EFEDE6; color: #0E0E0C; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; border: 1.25px solid transparent; transition: background .35s ease, transform .35s ease;" style-hover="background: #d8d6cd; transform: translateY(-1px);">BOOK ONLINE →</a>
@@ -118,13 +122,13 @@
       </button>
     </nav>
     <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-      <nav class="wl-menu" style="max-width: 1320px; margin: 8px auto 0; display: flex; flex-direction: column; border-top: 1px solid rgba(239,237,230,0.12); padding-top: 8px;">
-        <a href="#services" onClick="{{ closeMenu }}" style="padding: 13px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; border-bottom: 1px solid rgba(239,237,230,0.08);">Services</a>
-        <a href="#about" onClick="{{ closeMenu }}" style="padding: 13px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; border-bottom: 1px solid rgba(239,237,230,0.08);">About</a>
-        <a href="#approach" onClick="{{ closeMenu }}" style="padding: 13px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; border-bottom: 1px solid rgba(239,237,230,0.08);">Approach</a>
-        <a href="#faq" onClick="{{ closeMenu }}" style="padding: 13px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; border-bottom: 1px solid rgba(239,237,230,0.08);">FAQ</a>
-        <a href="#contact" onClick="{{ closeMenu }}" style="padding: 13px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6;">Contact</a>
-        <a href="blog.html" onClick="{{ closeMenu }}" style="padding: 13px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; border-bottom: 1px solid rgba(239,237,230,0.08);">Blog</a>
+      <nav class="wl-menu" style="max-width: 1320px; margin: 12px auto 2px; display: flex; flex-direction: column; border-top: 1px solid rgba(239,237,230,0.14); padding: 6px 0 4px;">
+        <a href="#services" onClick="{{ closeMenu }}" style="padding: 14px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; border-bottom: 1px solid rgba(239,237,230,0.08);">Services</a>
+        <a href="#about" onClick="{{ closeMenu }}" style="padding: 14px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; border-bottom: 1px solid rgba(239,237,230,0.08);">About</a>
+        <a href="#approach" onClick="{{ closeMenu }}" style="padding: 14px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; border-bottom: 1px solid rgba(239,237,230,0.08);">Approach</a>
+        <a href="#faq" onClick="{{ closeMenu }}" style="padding: 14px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; border-bottom: 1px solid rgba(239,237,230,0.08);">FAQ</a>
+        <a href="#contact" onClick="{{ closeMenu }}" style="padding: 14px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6; border-bottom: 1px solid rgba(239,237,230,0.08);">Contact</a>
+        <a href="Blog.dc.html" onClick="{{ closeMenu }}" style="padding: 14px 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #D2CFC6;">Blog</a>
       </nav>
     </sc-if>
   </div>
@@ -158,7 +162,7 @@
           </div>
           <div class="wl-heroside" data-reveal style="display: flex; flex-direction: column; gap: 18px; align-items: flex-end;">
             <div style="position: relative; width: 100%; max-width: 420px; aspect-ratio: 3/4; overflow: hidden; border: 1px solid rgba(239,237,230,0.24); align-self: flex-end; margin-top: 0;">
-              <img src="assets/wendi-portrait.jpg" alt="Wendi Lev — portrait, fig. 01" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; filter: grayscale(1) contrast(1.06) brightness(1.02); z-index: 1;">
+              <img src="assets/wendi-portrait-2.jpg" alt="Wendi Lev — portrait, fig. 01" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; filter: contrast(1.04) saturate(1.05); z-index: 1;">
               <span style="position: absolute; left: 13px; top: 12px; z-index: 2; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: rgba(255,255,255,0.8); letter-spacing: 0.22em; text-transform: uppercase;">fig. 01</span>
               <span style="position: absolute; right: 13px; bottom: 11px; z-index: 2; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: rgba(255,255,255,0.7); letter-spacing: 0.22em; text-transform: uppercase;">— · — —</span>
             </div>
@@ -410,6 +414,26 @@
     </section>
 
 
+    <!-- HORIZON PAIR -->
+    <section style="padding: 90px 0 0;">
+      <div style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px);">
+        <div data-reveal style="display: flex; justify-content: space-between; align-items: baseline; gap: 24px; flex-wrap: wrap; padding-bottom: 28px;">
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #5cbf8f;">/ what's on the other side</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #918F88;">relief · clarity · room to breathe</span>
+        </div>
+        <div class="wl-horizon" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <figure data-reveal style="margin: 0; position: relative; overflow: hidden; background: #0E0E0C; border: 1px solid rgba(239,237,230,0.16); aspect-ratio: 4/5;">
+            <img src="assets/ocean-sunset.jpg" alt="Ocean at sunset" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; filter: contrast(1.03) saturate(1.04);">
+            <figcaption style="position: absolute; left: 14px; bottom: 13px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: rgba(255,255,255,0.9); letter-spacing: 0.22em; text-transform: uppercase;">fig. 04 / the turning tide</figcaption>
+          </figure>
+          <figure data-reveal style="margin: 0; position: relative; overflow: hidden; background: #0E0E0C; border: 1px solid rgba(239,237,230,0.16); aspect-ratio: 4/5;">
+            <img src="assets/sunrise-arms.jpg" alt="Arms raised at sunrise" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; filter: contrast(1.03) saturate(1.04);">
+            <figcaption style="position: absolute; left: 14px; bottom: 13px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: rgba(255,255,255,0.9); letter-spacing: 0.22em; text-transform: uppercase;">fig. 05 / open again</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
     <!-- MANIFESTO -->
     <section style="padding: 160px 0; border-top: 1px solid rgba(239,237,230,0.12); border-bottom: 1px solid rgba(239,237,230,0.12);">
       <div class="wl-mani" style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px); display: grid; grid-template-columns: auto 1fr auto; gap: 40px; align-items: center;">
@@ -426,7 +450,7 @@
     <section style="padding: 0;">
       <figure data-reveal style="margin: 0; position: relative; height: clamp(260px,34vw,460px); overflow: hidden; border-top: 1px solid rgba(239,237,230,0.12); border-bottom: 1px solid rgba(239,237,230,0.12); background: #0E0E0C;">
         <img src="assets/building-entrance.jpg" alt="77 East Washington" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; filter: grayscale(0.4) contrast(1.03); z-index: 1;">
-        <figcaption style="position: absolute; left: clamp(20px,4vw,40px); bottom: 20px; z-index: 2; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 0.22em; text-transform: uppercase;">fig. 05 / 77 e. washington</figcaption>
+        <figcaption style="position: absolute; left: clamp(20px,4vw,40px); bottom: 20px; z-index: 2; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 0.22em; text-transform: uppercase;">fig. 06 / 77 e. washington</figcaption>
       </figure>
     </section>
 
@@ -604,7 +628,7 @@
     <section style="padding: 0;">
       <figure data-reveal style="margin: 0; position: relative; height: clamp(260px,34vw,460px); overflow: hidden; border-top: 1px solid rgba(239,237,230,0.12); border-bottom: 1px solid rgba(239,237,230,0.12); background: #0E0E0C;">
         <img src="assets/chicago-skyline.jpg" alt="Chicago, Illinois" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; filter: grayscale(0.4) contrast(1.03); z-index: 1;">
-        <figcaption style="position: absolute; left: clamp(20px,4vw,40px); bottom: 20px; z-index: 2; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 0.22em; text-transform: uppercase;">fig. 06 / chicago · il</figcaption>
+        <figcaption style="position: absolute; left: clamp(20px,4vw,40px); bottom: 20px; z-index: 2; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 0.22em; text-transform: uppercase;">fig. 07 / chicago · il</figcaption>
       </figure>
     </section>
 
@@ -639,7 +663,7 @@
     <footer style="background: #0E0E0C; color: #918F88; padding: 52px 0; border-top: 1px solid rgba(239,237,230,0.12);">
       <div class="wl-footrow" style="max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px); display: grid; grid-template-columns: auto auto auto; justify-content: space-between; gap: 32px; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;">
         <div style="display: flex; align-items: center; gap: 16px;"><span style="width: 26px; height: 26px; border: 1px solid #5D5C56; display: inline-grid; place-content: center; font-size: 7px; color: #918F88;">W/L</span> Wendi Lev, LCSW</div>
-        <div style="display: flex; justify-content: center; gap: 28px;"><a href="#services" style="transition: color .3s ease;" style-hover="color: #EFEDE6;">Services</a><a href="#about" style="transition: color .3s ease;" style-hover="color: #EFEDE6;">About</a><a href="#contact" style="transition: color .3s ease;" style-hover="color: #EFEDE6;">Contact</a><a href="blog.html" style="transition: color .3s ease;" style-hover="color: #EFEDE6;">Blog</a></div>
+        <div style="display: flex; justify-content: center; gap: 28px;"><a href="#services" style="transition: color .3s ease;" style-hover="color: #EFEDE6;">Services</a><a href="#about" style="transition: color .3s ease;" style-hover="color: #EFEDE6;">About</a><a href="#contact" style="transition: color .3s ease;" style-hover="color: #EFEDE6;">Contact</a><a href="Blog.dc.html" style="transition: color .3s ease;" style-hover="color: #EFEDE6;">Blog</a></div>
         <div style="display: flex; align-items: center; gap: 14px; justify-content: flex-end;">© 2026 <span style="color: #5D5C56;">— · — —</span></div>
       </div>
     </footer>
