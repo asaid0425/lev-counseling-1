@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /
+
+# Private preview — remove the Disallow line and restore the Allow below at launch.
+# Allow: /
+
+Sitemap: https://levcounselingservice.com/sitemap.xml
